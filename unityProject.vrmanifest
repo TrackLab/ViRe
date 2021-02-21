@@ -1,0 +1,16 @@
+{
+  "source": "Unity",
+  "applications": [
+    {
+      "app_key": "application.generated.unity.viredevbuild.exe",
+      "launch_type": "url",
+      "url": "steam://launch/",
+      "action_manifest_path": "D:\\OneDrive\\SarenDev Shared Folder\\ViRe\\ViRe (current build)\\Assets\\StreamingAssets\\SteamVR\\actions.json",
+      "strings": {
+        "en_us": {
+          "name": "ViRe (dev-build) [Testing]"
+        }
+      }
+    }
+  ]
+}
