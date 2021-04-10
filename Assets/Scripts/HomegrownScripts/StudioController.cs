@@ -1,22 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Valve.VR;
+using UnityEngine.XR;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class StudioController : MonoBehaviour
 {
     private new GameObject light;
-    FeedbackColor feedlight;
-    BVHRecorder recorder;
+    private FeedbackColor feedlight;
+    private BVHRecorder recorder;
     public GameObject pauseScreen;
-    public SteamVR_Action_Boolean m_BooleanAction;
     
-    private void Awake()
-    {
-        m_BooleanAction = SteamVR_Actions._default.GrabGrip;
-    }
 
-    void Start()
+    void Awake()
     {
         // Initialize the variables used by this script and the path to Documents
         light = GameObject.Find("AirText");
@@ -26,7 +22,7 @@ public class StudioController : MonoBehaviour
         recorder.directory = recpath;
     }
 
-    void ToggleRecording()
+    public void toggleRecording()
     {
         if (recorder.capturing){
             recorder.capturing=false;
@@ -46,14 +42,8 @@ public class StudioController : MonoBehaviour
     {
         // Toggle the state of the recorder
         if (Input.GetKeyDown("e")){
-            ToggleRecording();
+            toggleRecording();
         }
-
-        if (m_BooleanAction.GetStateDown(SteamVR_Input_Sources.Any))
-        {
-            ToggleRecording();
-        }
-
         // Open the pause menu
         if (Input.GetKeyDown("escape")){
             pauseScreen.SetActive(true);
