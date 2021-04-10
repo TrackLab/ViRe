@@ -11,4 +11,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/RecPlain.unity
     guid: 58e65431bdca900438ec9a38ddd03c5a
-  m_configObjects: {}
+  m_configObjects:
+    Unity.XR.OpenVR.Settings: {fileID: 11400000, guid: 90e88e5e6bc74a74eb158c17c81e102e,
+      type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 1f2f79bf3edc68547ae86355a05398d0,
+      type: 2}

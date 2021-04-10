@@ -119,6 +119,14 @@ namespace Valve.VR
             }
         }
 
+        public static void Save()
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorUtility.SetDirty(instance);
+            UnityEditor.AssetDatabase.SaveAssets();
+#endif
+        }
+
         private const string defaultSettingsAssetName = "SteamVR_Settings";
 
         private static void SetDefaultsIfNeeded()
@@ -139,6 +147,15 @@ namespace Valve.VR
 
             if (_instance.previewHandRight == null)
                 _instance.previewHandRight = FindDefaultPreviewHand(previewRightDefaultAssetName);
+#endif
+
+#if OPENVR_XR_API
+            Unity.XR.OpenVR.OpenVRSettings settings = Unity.XR.OpenVR.OpenVRSettings.GetSettings();
+            settings.ActionManifestFileRelativeFilePath = SteamVR_Input.GetActionsFilePath();
+
+#if UNITY_EDITOR
+            settings.EditorAppKey = _instance.editorAppKey;
+#endif
 #endif
         }
 
