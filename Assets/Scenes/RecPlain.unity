@@ -4445,7 +4445,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 3639
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 1
@@ -7561,6 +7561,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5472760476577728311}
+  - component: {fileID: 2237302757540336682}
   m_Layer: 0
   m_Name: metarig
   m_TagString: Untagged
@@ -7568,6 +7569,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &2237302757540336682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2237302757540336681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3964db362c2951d4bbf8e56c6c490990, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultHeight: 1.8
+  head: {fileID: 2696340933419293798}
+  playerRoot: {fileID: 2237302757540336681}
 --- !u!4 &2410987253687217535
 Transform:
   m_ObjectHideFlags: 0
@@ -7683,10 +7699,10 @@ MonoBehaviour:
   XOffset: 0
   YOffset: 0
   ZOffset: 0
-  ApplyX: 0
-  ApplyY: 0
-  ApplyZ: 0
-  OverwriteHeightForChest: 0
+  ApplyXOffset: 0
+  ApplyYOffset: 0
+  ApplyZOffset: 0
+  CopyRotation: 1
 --- !u!114 &2936276976877743120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7760,10 +7776,10 @@ MonoBehaviour:
   XOffset: 0
   YOffset: 0
   ZOffset: 0.1799275
-  ApplyX: 0
-  ApplyY: 0
-  ApplyZ: 1
-  OverwriteHeightForChest: 0
+  ApplyXOffset: 0
+  ApplyYOffset: 0
+  ApplyZOffset: 0
+  CopyRotation: 0
 --- !u!33 &4044710143011620087
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -8105,10 +8121,10 @@ MonoBehaviour:
   XOffset: 0
   YOffset: 0
   ZOffset: 0
-  ApplyX: 0
-  ApplyY: 0
-  ApplyZ: 0
-  OverwriteHeightForChest: 0
+  ApplyXOffset: 0
+  ApplyYOffset: 0
+  ApplyZOffset: 0
+  CopyRotation: 0
 --- !u!1 &6197003190025810103
 GameObject:
   m_ObjectHideFlags: 0
@@ -8283,10 +8299,10 @@ MonoBehaviour:
   XOffset: 0
   YOffset: 0
   ZOffset: 0
-  ApplyX: 0
-  ApplyY: 0
-  ApplyZ: 0
-  OverwriteHeightForChest: 0
+  ApplyXOffset: 0
+  ApplyYOffset: 0
+  ApplyZOffset: 0
+  CopyRotation: 0
 --- !u!23 &7718390322214696974
 MeshRenderer:
   m_ObjectHideFlags: 0

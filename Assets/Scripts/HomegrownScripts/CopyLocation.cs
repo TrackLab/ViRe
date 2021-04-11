@@ -11,45 +11,35 @@ public class CopyLocation : MonoBehaviour
     public float XOffset = 0f;
     public float YOffset = 0f;
     public float ZOffset = 0f;
+    public bool ApplyXOffset = false;
+    public bool ApplyYOffset = false;
+    public bool ApplyZOffset = false;
 
-    public bool ApplyX = false;
-    public bool ApplyY = false;
-    public bool ApplyZ = false;
+    private float Xpos = 0;
+    private float Ypos = 0;
+    private float Zpos = 0;
+    private Quaternion rotate;
+    private Vector3 position;
 
-    private float X = 0;
-    private float Y = 0;
-    private float Z = 0;
-
-    public bool OverwriteHeightForChest = false;
+    public bool CopyRotation = false;
+    //public bool OverwriteHeightForChest = false;
 
     void Update()
     {
+        if (ApplyXOffset) {Xpos = CopyFrom.position.x-XOffset;}
+        else {Xpos = CopyFrom.position.x;}
+
+        if (ApplyYOffset) {Ypos = CopyFrom.position.y-YOffset;}
+        else {Ypos = CopyFrom.position.y;}
+
+        if (ApplyZOffset) {Zpos = CopyFrom.position.z-ZOffset;}
+        else {Zpos = CopyFrom.position.z;}
         
-        if (ApplyX) {
-            X = CopyFrom.position.x-XOffset;
-        }
-        else {
-            X = CopyFrom.position.x;
-        }
+        position = new Vector3(Xpos,Ypos,Zpos);
 
-        if (ApplyY) {
-            Y = CopyFrom.position.y-YOffset;
-        }
-        else {
-            Y = CopyFrom.position.y;
-        }
-
-        if (ApplyZ) {
-            Z = CopyFrom.position.z-ZOffset;
-        }
-        else {
-            Z = CopyFrom.position.z;
-        }
+        if (CopyRotation){rotate = new Quaternion(CopyFrom.rotation.x,CopyFrom.rotation.y,CopyFrom.rotation.z,CopyFrom.rotation.w);} 
+        else {rotate = new Quaternion(PasteTo.rotation.x,PasteTo.rotation.y,PasteTo.rotation.z,PasteTo.rotation.w);}
         
-        if (OverwriteHeightForChest) {
-            Y = 1.041f;
-        }
-
-        PasteTo.position = new Vector3(X,Y,Z);
+        PasteTo.SetPositionAndRotation(position,rotate);
     }
 }
