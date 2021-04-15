@@ -17,7 +17,7 @@ public class AutoScaler : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown("s")){
+        if (Input.GetKeyDown("r")){
             Resize();
         }
     }
