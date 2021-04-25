@@ -821,7 +821,7 @@
                 {
                     "name": "",
                     "id": "eb6c8b52-97d5-41dd-aaf4-96a3bdb9d315",
-                    "path": "<XRController>{LeftHand}/menu",
+                    "path": "<XRController>{LeftHand}/primaryButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "Generic XR Controller",
@@ -832,10 +832,10 @@
                 {
                     "name": "",
                     "id": "c4c3c7c0-1f4f-47e4-8803-da2e649d28a7",
-                    "path": "<XRController>{RightHand}/menu",
+                    "path": "<XRController>{RightHand}/primaryButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Generic XR Controller",
                     "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -865,7 +865,7 @@
                 {
                     "name": "",
                     "id": "784fdb8d-0d09-4c30-8f2f-db8a4be45e1f",
-                    "path": "<XRController>{LeftHand}/triggerPressed",
+                    "path": "<XRController>{LeftHand}/primary2DAxisClick",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -876,7 +876,7 @@
                 {
                     "name": "",
                     "id": "77c0bbde-d74b-437b-a318-58bf226e2769",
-                    "path": "<XRController>{RightHand}/triggerPressed",
+                    "path": "<XRController>{RightHand}/primary2DAxisClick",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

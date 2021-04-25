@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StudioController : MonoBehaviour
 {
     private ActionReader ctrlLister;
-    private ControlManager ctrlManager;
     private new GameObject light;
     private FeedbackColor feedlight;
     private BVHRecorder recorder;
-    private bool isPaused = false;
+    private bool isPaused;
     public GameObject pauseScreen;
     
 
@@ -17,7 +17,6 @@ public class StudioController : MonoBehaviour
         ctrlLister = new ActionReader();
         subscribeControls();
 
-        ctrlManager = ctrlLister.getControlManager();
         light = GameObject.Find("AirText");
         feedlight = light.GetComponent<FeedbackColor>();
         recorder = GetComponent<BVHRecorder>();
@@ -31,20 +30,27 @@ public class StudioController : MonoBehaviour
         ctrlLister.getInputAction("Keyboard","Record").performed += onRecord;
         ctrlLister.getInputAction("Keyboard","Pause").performed += onPause;
     }
+    
+    void OnDisable(){
+        ctrlLister.getInputAction("XRI BothHands","Record").performed -= onRecord;
+        ctrlLister.getInputAction("XRI BothHands","Pause").performed -= onPause;
+        ctrlLister.getInputAction("Keyboard","Record").performed -= onRecord;
+        ctrlLister.getInputAction("Keyboard","Pause").performed -= onPause;
+    }
 
-    private void onPause(UnityEngine.InputSystem.InputAction.CallbackContext ctx){
+    private void onPause(UnityEngine.InputSystem.InputAction.CallbackContext ctx){pause();}
+    private void onRecord(UnityEngine.InputSystem.InputAction.CallbackContext ctx){toggleRecording();}
+    
+    public void pause(){
         if (!isPaused){
-            ctrlManager.disableControls();
             pauseScreen.SetActive(true);
             isPaused = true;
         } else {
-            ctrlManager.enableControls();
             pauseScreen.SetActive(false);
             isPaused = false;
         }
     }
-    private void onRecord(UnityEngine.InputSystem.InputAction.CallbackContext ctx){toggleRecording();}
-
+    
     public void toggleRecording()
     {
         if (recorder.capturing){
@@ -60,4 +66,6 @@ public class StudioController : MonoBehaviour
             Debug.Log("Recorder ON");
         }
     }
+
+    public void returnMenu(){SceneManager.LoadScene("Menu");}
 }

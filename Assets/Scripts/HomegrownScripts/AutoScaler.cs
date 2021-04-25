@@ -22,6 +22,11 @@ public class AutoScaler : MonoBehaviour
         ctrlLister.getInputAction("Keyboard","Scale").performed += onScale;
     }
 
+    void OnDisable(){
+        ctrlLister.getInputAction("XRI BothHands","Scale").performed -= onScale;
+        ctrlLister.getInputAction("Keyboard","Scale").performed -= onScale;
+    }
+
     //This might be avoidable if I ever understand event delegates all the wa
     private void onScale(UnityEngine.InputSystem.InputAction.CallbackContext ctx){Resize();}
 

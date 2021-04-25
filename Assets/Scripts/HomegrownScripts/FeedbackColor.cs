@@ -1,12 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class FeedbackColor : MonoBehaviour
 {
     public Material onMaterial;
     public Material offMaterial;
+    private Renderer render;
 
-    public void OnAir(){GetComponent<Renderer>().material = onMaterial;}
-    public void OffAir(){GetComponent<Renderer>().material = offMaterial;}
+    void Awake(){render = GetComponent<Renderer>();}
+
+    public void OnAir(){render.material = onMaterial;}
+    public void OffAir(){render.material = offMaterial;}
 }

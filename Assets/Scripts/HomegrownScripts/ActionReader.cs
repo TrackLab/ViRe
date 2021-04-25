@@ -8,10 +8,9 @@ public class ActionReader
     
     private static readonly InputActionAsset xrControls;
     private static readonly InputActionAsset keyboard; 
-    private static readonly ControlManager controlRef;
     
     static ActionReader(){
-        controlRef = GameObject.Find("ControlReferencer").GetComponent<ControlManager>();
+        ControlManager controlRef = GameObject.Find("ControlReferencer").GetComponent<ControlManager>();
         xrControls = controlRef.getXRcontrols();
         keyboard = controlRef.getKeyboard();
     }
@@ -29,6 +28,4 @@ public class ActionReader
         }
         throw new ArgumentException("Input Map name invalid");
     }
-
-    public ControlManager getControlManager(){return controlRef;}
 }
