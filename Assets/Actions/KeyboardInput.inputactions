@@ -1,0 +1,71 @@
+{
+    "name": "KeyboardInput",
+    "maps": [
+        {
+            "name": "Keyboard",
+            "id": "b21b173f-a716-4352-b3b3-ed86bce8dd52",
+            "actions": [
+                {
+                    "name": "Record",
+                    "type": "Button",
+                    "id": "fd61b784-4bc3-4ff4-8ca4-732ecf1dcec5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Scale",
+                    "type": "Button",
+                    "id": "4dc1c11a-61b2-4f63-b648-1455b4170e65",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "ac447404-31e8-4727-939b-d76f7a980312",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "f1a32c22-a776-4289-97fb-43da36b81578",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Record",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b04bb528-d549-4756-895e-8984a4096a6f",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Scale",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a307d34b-9e18-4aa2-a186-b1fd5f528b94",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

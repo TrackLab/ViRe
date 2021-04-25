@@ -1,26 +1,29 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
 public class AutoScaler : MonoBehaviour
 {
-    //TODO: Add VR controller support
+    private ActionReader ctrlLister;
     public float defaultHeight = 1.8f;
-    public GameObject head;
-    public GameObject playerRoot;
+    private GameObject head, playerRoot;
+    
 
-    void Start()
+    void Awake()
     {
+        ctrlLister = new ActionReader();
+        subscribeControls();
+        
         head = GameObject.Find("Main Camera");
         playerRoot = GameObject.Find("metarig");
+        
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown("r")){
-            Resize();
-        }
+    private void subscribeControls(){
+        ctrlLister.getInputAction("XRI BothHands","Scale").performed += onScale;
+        ctrlLister.getInputAction("Keyboard","Scale").performed += onScale;
     }
+
+    //This might be avoidable if I ever understand event delegates all the wa
+    private void onScale(UnityEngine.InputSystem.InputAction.CallbackContext ctx){Resize();}
 
     public void Resize()
     {   
