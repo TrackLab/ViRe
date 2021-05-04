@@ -21,7 +21,7 @@ public class VRsimCTRL : MonoBehaviour
 
 
     void onDeviceConnected(InputDevice value){
-        emulate.SetActive(false);
-        drone.SetActive(true);
+        emulate.SetActive(true);
+        drone.SetActive(false);
     }
 }
