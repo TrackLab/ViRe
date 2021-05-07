@@ -3305,8 +3305,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1989429706}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: FileOpener
+        m_TargetAssemblyTypeName: BrowsePath, Assembly-CSharp
+        m_MethodName: fileBrowser
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

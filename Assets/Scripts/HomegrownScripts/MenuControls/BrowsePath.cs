@@ -1,27 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using Ookii.Dialogs;
+using System.Collections;
+using SimpleFileBrowser;
 
 public class BrowsePath : MonoBehaviour
 {
     private Text pathtext;
-    private string pathf = System.Environment.GetEnvironmentVariable("USERPROFILE")+"/Documents";
+    private string pathD, pathC;
     void Start(){
         pathtext = GameObject.Find("PathField").GetComponentInChildren<Text>();
-        string pathc = PlayerPrefs.GetString("RecPath", "");
-        if (pathc.Length>0){pathtext.text = pathc;}
+        pathD = System.Environment.GetEnvironmentVariable("USERPROFILE")+"/Documents";
+        string pathC = PlayerPrefs.GetString("RecPath", "");
+        if (pathC.Length>0){pathtext.text = pathC;}
     }
     
-    public void FileOpener()
-    {
-       var folbrowse = new Ookii.Dialogs.VistaFolderBrowserDialog();
-       folbrowse.ShowDialog();
-       if (!string.IsNullOrWhiteSpace(folbrowse.SelectedPath)){pathf = folbrowse.SelectedPath;}
-       Debug.Log(pathf);
-       pathtext.text = pathf;
-       PlayerPrefs.SetString("RecPath", pathf);
-       PlayerPrefs.Save();
+    public void fileBrowser(){StartCoroutine(runFileBrowser());}
+    
+    IEnumerator runFileBrowser(){
+        yield return FileBrowser.WaitForLoadDialog(FileBrowser.PickMode.Folders,false,pathC,null,"Select recording folder","Select");
+        if (FileBrowser.Success){
+            pathC = FileBrowser.Result[0];
+            PlayerPrefs.SetString("RecPath", pathC);
+            pathtext.text = pathC;
+        }
     }
 }
