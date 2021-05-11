@@ -1,5 +1,5 @@
-BVH Recorder 
-github.com/emilianavt
+BVH Tools 
+https://github.com/emilianavt/BVHTools
 
 -------------------------------------------
 
@@ -15,5 +15,10 @@ https://github.com/vrm-c/UniVRM
 
 SimpleFileBrowser
 https://github.com/yasirkula/UnitySimpleFileBrowser
+
+-------------------------------------------
+
+Unity Audio Visualizer
+https://github.com/flohuemer/UnityAudioVisualizer
 
 -------------------------------------------
