@@ -7853,7 +7853,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 8dcfb41d16fefe04baddf118bb33fb27,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2474126768783497641, guid: 8dcfb41d16fefe04baddf118bb33fb27,
         type: 3}
@@ -9546,6 +9546,8 @@ GameObject:
   - component: {fileID: 1953336025}
   - component: {fileID: 1953336024}
   - component: {fileID: 1953336023}
+  - component: {fileID: 1953336026}
+  - component: {fileID: 1953336027}
   m_Layer: 0
   m_Name: LeftAnkleConroller
   m_TagString: Untagged
@@ -9629,6 +9631,45 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1953336021}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1953336026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953336021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a0f1d0f133cbd64c944a1504286d3f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CopyFrom: {fileID: 1318682186}
+  PasteTo: {fileID: 1953336022}
+  CopyRotation: 0
+  ApplyXOffset: 1
+  XOffset: -0.08999991
+  OverwriteYPosition: 1
+  YPos: 0.02349997
+  ApplyZOffset: 1
+  ZOffset: 0.0295
+  ApplyAngles: 0
+  XAngle: 0
+  YAngle: 0
+  ZAngle: 0
+--- !u!114 &1953336027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953336021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4769f13a150566448a68e9eb21d41ada, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CopyFrom: {fileID: 1318682186}
+  PasteTo: {fileID: 1953336022}
 --- !u!1 &1956865078
 GameObject:
   m_ObjectHideFlags: 0
@@ -10229,6 +10270,8 @@ GameObject:
   - component: {fileID: 2061029588}
   - component: {fileID: 2061029587}
   - component: {fileID: 2061029586}
+  - component: {fileID: 2061029589}
+  - component: {fileID: 2061029590}
   m_Layer: 0
   m_Name: RightAnkleConroller
   m_TagString: Untagged
@@ -10312,6 +10355,45 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2061029584}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &2061029589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2061029584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a0f1d0f133cbd64c944a1504286d3f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CopyFrom: {fileID: 1318682186}
+  PasteTo: {fileID: 2061029585}
+  CopyRotation: 0
+  ApplyXOffset: 1
+  XOffset: 0.08999991
+  OverwriteYPosition: 1
+  YPos: 0.02349997
+  ApplyZOffset: 1
+  ZOffset: 0.0295
+  ApplyAngles: 0
+  XAngle: 0
+  YAngle: 0
+  ZAngle: 0
+--- !u!114 &2061029590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2061029584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4769f13a150566448a68e9eb21d41ada, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CopyFrom: {fileID: 1318682186}
+  PasteTo: {fileID: 2061029585}
 --- !u!1 &2075382000
 GameObject:
   m_ObjectHideFlags: 0
@@ -11554,6 +11636,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5472760476577728311}
   - component: {fileID: 2237302757540336682}
+  - component: {fileID: 2237302757540336683}
+  - component: {fileID: 2237302757540336684}
   m_Layer: 0
   m_Name: metarig
   m_TagString: Untagged
@@ -11574,6 +11658,45 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultHeight: 1.8
+--- !u!114 &2237302757540336683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2237302757540336681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cd31c86cc70dd4408d38a2608ac0b57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CopyFrom: {fileID: 1318682186}
+  PasteTo: {fileID: 5472760476577728311}
+  CopyRotation: 0
+  ApplyXOffset: 0
+  XOffset: 0
+  ApplyYOffset: 1
+  YOffset: 1.8
+  ApplyZOffset: 0
+  ZOffset: 0
+  ApplyAngles: 0
+  XAngle: 0
+  YAngle: 0
+  ZAngle: 0
+--- !u!114 &2237302757540336684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2237302757540336681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4769f13a150566448a68e9eb21d41ada, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CopyFrom: {fileID: 1318682186}
+  PasteTo: {fileID: 5472760476577728311}
 --- !u!4 &2410987253687217535
 Transform:
   m_ObjectHideFlags: 0
