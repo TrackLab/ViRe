@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class StudioController : MonoBehaviour
 {
     private ActionReader ctrlLister;
-    private new GameObject light;
     private FeedbackColor feedlight;
     private BVHRecorder recorder;
     private bool isPaused;
@@ -17,11 +17,14 @@ public class StudioController : MonoBehaviour
         ctrlLister = new ActionReader();
         subscribeControls();
 
-        light = GameObject.Find("AirText");
+        GameObject light = GameObject.Find("AirText");
         feedlight = light.GetComponent<FeedbackColor>();
         recorder = GetComponent<BVHRecorder>();
-        string recpath = PlayerPrefs.GetString("RecPath", System.Environment.GetEnvironmentVariable("USERPROFILE")+"/Documents");
-        recorder.directory = recpath;
+
+        string docPath = System.Environment.GetEnvironmentVariable("USERPROFILE")+"/Documents";
+        string recPath = PlayerPrefs.GetString("RecPath", docPath);
+        if (!Directory.Exists(recPath)){recPath = docPath;}
+        recorder.directory = recPath;
     }
 
     private void subscribeControls(){
