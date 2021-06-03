@@ -33,6 +33,16 @@ public class StudioController : MonoBehaviour
         ctrlLister.getInputAction("Keyboard","Record").performed += onRecord;
         ctrlLister.getInputAction("Keyboard","Pause").performed += onPause;
     }
+
+    private void subscribePauseControls(){
+        ctrlLister.getInputAction("Keyboard","Yes").performed += onPauseYes;
+        ctrlLister.getInputAction("Keyboard","No").performed += onPauseNo;
+    }
+
+    private void unSubscribePauseControls(){
+        ctrlLister.getInputAction("Keyboard","Yes").performed -= onPauseYes;
+        ctrlLister.getInputAction("Keyboard","No").performed -= onPauseNo;
+    }
     
     void OnDisable(){
         ctrlLister.getInputAction("XRI BothHands","Record").performed -= onRecord;
@@ -43,14 +53,18 @@ public class StudioController : MonoBehaviour
 
     private void onPause(UnityEngine.InputSystem.InputAction.CallbackContext ctx){pause();}
     private void onRecord(UnityEngine.InputSystem.InputAction.CallbackContext ctx){toggleRecording();}
+    private void onPauseYes(UnityEngine.InputSystem.InputAction.CallbackContext ctx){returnMenu();}
+    private void onPauseNo(UnityEngine.InputSystem.InputAction.CallbackContext ctx){pause();}
     
     public void pause(){
         if (!isPaused){
             pauseScreen.SetActive(true);
             isPaused = true;
+            subscribePauseControls();
         } else {
             pauseScreen.SetActive(false);
             isPaused = false;
+            unSubscribePauseControls();
         }
     }
     
