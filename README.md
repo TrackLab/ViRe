@@ -15,12 +15,12 @@ A video has been made to showcase and explain ViRe. Simply click on the YouTube 
 </a>
 <br /><br />
 
-### ViRe definitely runs with the following headsets <br /> <br /> 
+### ViRe definitely runs with the following headsets <br /> 
 <img align="left" width="64" alt="HTC Vive" src="https://user-images.githubusercontent.com/35671643/120832445-f4d40500-c560-11eb-8290-f46a808628af.png" />
 <img align="left" width="64" alt="Valve Index" src="https://user-images.githubusercontent.com/35671643/120832666-32d12900-c561-11eb-8c3a-7cdb1ea80ca3.jpg" />
 <img align="left" width="64" alt="Oculus" src="https://user-images.githubusercontent.com/35671643/120832780-52685180-c561-11eb-907b-ddf6ef20c5c8.png" />
 <br /> <br /> <br /> 
-It very well may run with other headsets as well, but I don't want to guarantee it. It is free, so just try it out if you like.
+It very well may run with other headsets as well, but I don't want to guarantee it. It is free, so just try it out if you like. <br />
 
 ### ViRe is currently in the Alpha
 It supports the tracking of the headset and both hand controllers. We are working on getting additional Trackers to be supported, and for every place you do not have a tracker, procedual bone movement will help out.
