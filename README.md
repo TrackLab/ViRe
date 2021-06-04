@@ -43,6 +43,22 @@ You can also join our Discord server, if you would like to talk to us directly o
 <a href="https://discord.gg/8yzVHS7XUF" target="_blank">
   <img width="100" border="0" align="left"  src="https://user-images.githubusercontent.com/35671643/120851103-ab8faf80-c578-11eb-86d3-c1bdf0c2a6e7.png"/>
 </a>
-<br /><br />
+<br /><br /><br /><br /><br />
 
+## Feature development
 
+| Feature                                       | Status        |
+| ----------------------------------------------|:-------------:|
+| Motion tracking via controllers and headset | ✔ Working  |
+| Recording to a BVH file format. Usable in Blender | ✔ Working |
+| Spectrator camera | ✔ Working |
+| Windows support | ✔ Working |
+| VR compatible menu | ⏳ In progress |
+| UI polish | ⏳ In progress |
+| Motion tracking via Vive trackers | 📝 Planned |
+| Procedural leg movement w/o Vive trackers | 📝 Planned |
+| Linux support | 📝 Planned |
+
+More to come with updates
+
+Licensed under GNU GPL 3.0
