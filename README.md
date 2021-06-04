@@ -11,7 +11,7 @@ All you need is a simple VR Setup. ViRe runs on top of OpenXR, an asset to suppo
 A video has been made to showcase and explain ViRe. Simply click on the YouTube logo to watch it.
 <br /><br />
 <a href="https://www.youtube.com/c/TrackLab/featured" target="_blank">
-  <img width="220" border="0" align="center"  src="https://user-images.githubusercontent.com/35671643/120836631-11bf0700-c566-11eb-97ea-256f208d2e3f.png"/>
+  <img width="220" border="0" align="left"  src="https://user-images.githubusercontent.com/35671643/120836631-11bf0700-c566-11eb-97ea-256f208d2e3f.png"/>
 </a>
 <br /><br />
 
@@ -35,3 +35,14 @@ You can also support ViRe by donating on [Patreon]
 </a>
 
 [Patreon]: https://www.patreon.com/tracklab
+
+### Talk to us
+
+You can also join our Discord server, if you would like to talk to us directly or suggest features and ideas for ViRe. </br>
+
+<a href="https://discord.gg/8yzVHS7XUF" target="_blank">
+  <img width="100" border="0" align="left"  src="https://user-images.githubusercontent.com/35671643/120851103-ab8faf80-c578-11eb-86d3-c1bdf0c2a6e7.png"/>
+</a>
+<br /><br />
+
+
