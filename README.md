@@ -10,7 +10,7 @@ All you need is a simple VR Setup. ViRe runs on top of OpenXR, an asset to suppo
 
 A video has been made to showcase and explain ViRe. Simply click on the YouTube logo to watch it.
 <br /><br />
-<a href="https://www.youtube.com/c/TrackLab/featured" target="_blank">
+<a href="https://www.youtube.com/watch?v=TfnD7U9Bu2g" target="_blank">
   <img width="220" border="0" align="left"  src="https://user-images.githubusercontent.com/35671643/120836631-11bf0700-c566-11eb-97ea-256f208d2e3f.png"/>
 </a>
 <br /><br />
