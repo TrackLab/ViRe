@@ -130,6 +130,9 @@ PlayerSettings:
   bundleVersion: 0.9 Alpha
   preloadedAssets:
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: -7636219396843778466, guid: ab2afe1b0d6e58842a6287f47cf87364, type: 2}
   - {fileID: 11400000, guid: f036e194bdfafb14495a3f31462032a7, type: 2}
   metroInputSource: 0
