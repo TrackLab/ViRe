@@ -25,6 +25,9 @@ public class StudioController : MonoBehaviour
         string recPath = PlayerPrefs.GetString("RecPath", docPath);
         if (!Directory.Exists(recPath)){recPath = docPath;}
         recorder.directory = recPath;
+
+        UpdateCheck updateCheck = GetComponent<UpdateCheck>();
+        updateCheck.check();
     }
 
     private void subscribeControls(){
@@ -34,37 +37,16 @@ public class StudioController : MonoBehaviour
         ctrlLister.getInputAction("Keyboard","Pause").performed += onPause;
     }
 
-    private void subscribePauseControls(){
-        ctrlLister.getInputAction("Keyboard","Yes").performed += onPauseYes;
-        ctrlLister.getInputAction("Keyboard","No").performed += onPauseNo;
-    }
-
-    private void unSubscribePauseControls(){
-        ctrlLister.getInputAction("Keyboard","Yes").performed -= onPauseYes;
-        ctrlLister.getInputAction("Keyboard","No").performed -= onPauseNo;
-    }
-    
-    void OnDisable(){
-        ctrlLister.getInputAction("XRI BothHands","Record").performed -= onRecord;
-        ctrlLister.getInputAction("XRI BothHands","Pause").performed -= onPause;
-        ctrlLister.getInputAction("Keyboard","Record").performed -= onRecord;
-        ctrlLister.getInputAction("Keyboard","Pause").performed -= onPause;
-    }
-
     private void onPause(UnityEngine.InputSystem.InputAction.CallbackContext ctx){pause();}
     private void onRecord(UnityEngine.InputSystem.InputAction.CallbackContext ctx){toggleRecording();}
-    private void onPauseYes(UnityEngine.InputSystem.InputAction.CallbackContext ctx){returnMenu();}
-    private void onPauseNo(UnityEngine.InputSystem.InputAction.CallbackContext ctx){pause();}
-    
+
     public void pause(){
         if (!isPaused){
             pauseScreen.SetActive(true);
             isPaused = true;
-            subscribePauseControls();
         } else {
             pauseScreen.SetActive(false);
             isPaused = false;
-            unSubscribePauseControls();
         }
     }
     
@@ -83,6 +65,4 @@ public class StudioController : MonoBehaviour
             Debug.Log("Recorder ON");
         }
     }
-
-    public void returnMenu(){SceneManager.LoadScene("Menu");}
 }
