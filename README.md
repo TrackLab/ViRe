@@ -27,7 +27,7 @@ It supports the tracking of the headset and both hand controllers. We are workin
 
 ### Support ViRe
 
-If you'd like to help develop ViRe, feel free to download the open-source project and send us a branch to update ViRe.
+If you'd like to help develop ViRe, feel free to download the open-source project, fork it and send us a pull request to update ViRe.
 You can also support ViRe by donating on [Patreon] 
 
 <a href="https://www.patreon.com/tracklab" target="_blank">
