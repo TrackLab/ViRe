@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Text.RegularExpressions;
 using UnityEngine.Networking;
 using UnityEngine;
 
@@ -20,20 +21,18 @@ public class UpdateCheck : MonoBehaviour
 
         string currentVersion = Application.version.TrimEnd('A');
         string webVersion = findRelease(net.downloadHandler.text);
-        string webVtrimmed = webVersion.TrimEnd('A');
-
-        if (!webVtrimmed.Equals(currentVersion) && !currentVersion.Equals("")){
-            setNotifier(webVersion);
+        if (!webVersion.Equals(currentVersion) && !currentVersion.Equals("")){
+            setNotifier(webVersion+'A');
         }
     }
 
-    private string findRelease(string src){
-        if (src.Contains("v") && src.Contains("\"")){
-            int Start = src.IndexOf("v", 0) + 1;
-            int End = src.IndexOf("\"", Start);
-            return src.Substring(Start, End - Start);
-        }
-        return "";
+    private string findRelease(string input)
+    {
+        Regex regex1 = new Regex("\"tag_name\": \"(?:[^\"]|\"\")*\",", RegexOptions.IgnoreCase);
+        Regex regex2 = new Regex("([0-9]+(\\.[0-9]+)+)", RegexOptions.IgnoreCase);
+        Match matchPre = regex1.Match(input);
+        Match matchFin = regex2.Match(matchPre.ToString());
+        return matchFin.Captures[0].ToString();
     }
 
     private void setNotifier(string webVersion){
