@@ -15,7 +15,7 @@ MonoBehaviour:
   PromptToUpgradePackage: 1
   PromptToUpgradePreviewPackages: 1
   SkipPromptForVersion: 
-  StereoRenderingMode: 1
+  StereoRenderingMode: 0
   InitializationType: 1
   EditorAppKey: application.generated.unity.vire.exe
   ActionManifestFileRelativeFilePath: StreamingAssets\SteamVR\actions.json
