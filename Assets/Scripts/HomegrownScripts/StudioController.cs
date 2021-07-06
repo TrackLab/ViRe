@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.IO;
+using Valve.VR;
 
 public class StudioController : MonoBehaviour
 {
@@ -31,12 +32,14 @@ public class StudioController : MonoBehaviour
     }
 
     private void subscribeControls(){
-        ctrlLister.getInputAction("XRI BothHands","Record").performed += onRecord;
-        ctrlLister.getInputAction("XRI BothHands","Pause").performed += onPause;
+        SteamVR_Actions._default.Record[SteamVR_Input_Sources.Any].onStateDown += vrOnRecord;
+        SteamVR_Actions._default.Pause[SteamVR_Input_Sources.Any].onStateDown += vrOnPause;
         ctrlLister.getInputAction("Keyboard","Record").performed += onRecord;
         ctrlLister.getInputAction("Keyboard","Pause").performed += onPause;
     }
 
+    private void vrOnPause(SteamVR_Action_Boolean action, SteamVR_Input_Sources source){pause();}
+    private void vrOnRecord(SteamVR_Action_Boolean action, SteamVR_Input_Sources source){toggleRecording();}
     private void onPause(UnityEngine.InputSystem.InputAction.CallbackContext ctx){pause();}
     private void onRecord(UnityEngine.InputSystem.InputAction.CallbackContext ctx){toggleRecording();}
 

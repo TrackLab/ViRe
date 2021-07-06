@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Valve.VR;
 
 public class AutoScaler : MonoBehaviour
 {
@@ -18,17 +19,12 @@ public class AutoScaler : MonoBehaviour
     }
 
     private void subscribeControls(){
-        ctrlLister.getInputAction("XRI BothHands","Scale").performed += onScale;
+        SteamVR_Actions._default.Scale[SteamVR_Input_Sources.Any].onStateDown += vrOnScale;
         ctrlLister.getInputAction("Keyboard","Scale").performed += onScale;
     }
 
-    void OnDisable(){
-        ctrlLister.getInputAction("XRI BothHands","Scale").performed -= onScale;
-        ctrlLister.getInputAction("Keyboard","Scale").performed -= onScale;
-    }
-
-    //This might be avoidable if I ever understand event delegates all the wa
     private void onScale(UnityEngine.InputSystem.InputAction.CallbackContext ctx){Resize();}
+    private void vrOnScale(SteamVR_Action_Boolean action, SteamVR_Input_Sources source){Resize();}
 
     public void Resize()
     {   
