@@ -5,7 +5,6 @@ using Valve.VR;
 
 public class StudioController : MonoBehaviour
 {
-    private ActionReader ctrlLister;
     private FeedbackColor feedlight;
     private BVHRecorder recorder;
     private bool isPaused;
@@ -15,7 +14,6 @@ public class StudioController : MonoBehaviour
     void Start()
     {
         // Initialize the variables used by this script and the path to Documents
-        ctrlLister = new ActionReader();
         subscribeControls();
 
         GameObject light = GameObject.Find("AirText");
@@ -34,14 +32,12 @@ public class StudioController : MonoBehaviour
     private void subscribeControls(){
         SteamVR_Actions._default.Record[SteamVR_Input_Sources.Any].onStateDown += vrOnRecord;
         SteamVR_Actions._default.Pause[SteamVR_Input_Sources.Any].onStateDown += vrOnPause;
-        ctrlLister.getInputAction("Keyboard","Record").performed += onRecord;
-        ctrlLister.getInputAction("Keyboard","Pause").performed += onPause;
+        //TODO: Keyboard controls
     }
 
     private void vrOnPause(SteamVR_Action_Boolean action, SteamVR_Input_Sources source){pause();}
     private void vrOnRecord(SteamVR_Action_Boolean action, SteamVR_Input_Sources source){toggleRecording();}
-    private void onPause(UnityEngine.InputSystem.InputAction.CallbackContext ctx){pause();}
-    private void onRecord(UnityEngine.InputSystem.InputAction.CallbackContext ctx){toggleRecording();}
+    //TODO: Keyboard controls
 
     public void pause(){
         if (!isPaused){
