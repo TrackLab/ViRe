@@ -3,6 +3,13 @@
 public class CopyTransform : MonoBehaviour
 {
 
+    /**
+        IMPORTANT: This is a patented mess
+
+        This script copies transform information from an object to the one this script is on
+        You can also apply a specific offset to a parameter or lock it to a value using the Unity Editor
+    **/
+    
     public Transform CopyFrom;
     private Transform PasteTo;
     public bool EnableCopyLocation = true;
@@ -83,6 +90,7 @@ public class CopyTransform : MonoBehaviour
         PasteTo.SetPositionAndRotation(position,rotate);
     }
 
+    //Radio buttons are stupid hard to set up, so this is here to "make checkboxes be radio buttons" by getting in your way
     void paramCheck(){
         if (ApplyXOffset && LockX){
             Debug.LogWarning("Both Lock X and Apply X Offset are set, only one can be used! Lock X is ignored.");

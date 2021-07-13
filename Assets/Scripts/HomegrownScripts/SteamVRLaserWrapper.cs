@@ -4,6 +4,12 @@
  
  public class SteamVRLaserWrapper : MonoBehaviour
  {
+     /**
+        This script lets the SteamVR laser interact with Unity Buttons using Box Colliders
+        Offered up by a gracious soul on the Unity Forums
+        TODO: Find original author
+     **/
+
      private SteamVR_LaserPointer steamVrLaserPointer;
  
      private void Awake()

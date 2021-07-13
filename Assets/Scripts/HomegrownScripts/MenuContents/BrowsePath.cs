@@ -10,6 +10,7 @@ public class BrowsePath : MonoBehaviour
     private string pathC;
     private BVHRecorder recorder;
 
+    //Loads the recordings path saved in Player Preferences into the Path field, if it exists
     void Start(){
         recorder = GameObject.Find("ViRe_Character").GetComponent<BVHRecorder>();
         pathtext = GameObject.Find("PathField").GetComponentInChildren<Text>();
@@ -23,6 +24,7 @@ public class BrowsePath : MonoBehaviour
     
     public void fileBrowser(){StartCoroutine(runFileBrowser());}
     
+    //Browse for a directory, commit it to Player Preferences, and set it in the Recorder
     IEnumerator runFileBrowser(){
         yield return FileBrowser.WaitForLoadDialog(FileBrowser.PickMode.Folders,false,pathC,null,"Select recording folder","Select");
         if (FileBrowser.Success){

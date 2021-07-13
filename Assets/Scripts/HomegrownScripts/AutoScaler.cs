@@ -3,7 +3,7 @@ using Valve.VR;
 
 public class AutoScaler : MonoBehaviour
 {
-    public float defaultHeight = 1.8f;
+    public float defaultModelHeight = 1.8f;
     private GameObject head, playerRoot;
     
 
@@ -26,7 +26,7 @@ public class AutoScaler : MonoBehaviour
 
     public void Resize()
     {   
-        float newScale = head.transform.position.y / defaultHeight;
+        float newScale = head.transform.position.y / defaultModelHeight;
         playerRoot.transform.localScale = new Vector3(newScale,newScale,newScale);
     }
 }

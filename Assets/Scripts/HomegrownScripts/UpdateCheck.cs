@@ -14,6 +14,7 @@ public class UpdateCheck : MonoBehaviour
         StartCoroutine(getUpdate());
     }
 
+    //Get the latest release version from GitHub's API and comapre it to the current app version
     IEnumerator getUpdate(){
         UnityWebRequest net = UnityWebRequest.Get("https://api.github.com/repos/TrackLab/ViRe/releases/latest");
         yield return net.SendWebRequest();
@@ -26,6 +27,7 @@ public class UpdateCheck : MonoBehaviour
         }
     }
 
+    //Regex soup to extract the version text from the API's JSON response
     private string findRelease(string input)
     {
         Regex regex1 = new Regex("\"tag_name\": \"(?:[^\"]|\"\")*\",", RegexOptions.IgnoreCase);
@@ -35,6 +37,7 @@ public class UpdateCheck : MonoBehaviour
         return matchFin.Captures[0].ToString();
     }
 
+    //Show the notifier window with the new version number
     private void setNotifier(string webVersion){
         versionNotifWindow.SetActive(true);
         versionText.text = webVersion;
