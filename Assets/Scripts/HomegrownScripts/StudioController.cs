@@ -49,4 +49,11 @@ public class StudioController : MonoBehaviour
             Debug.Log("Recorder ON");
         }
     }
+
+    public void quitGame()
+    {
+        Debug.Log("QUIT!");
+        Application.Quit();
+    }
+
 }
