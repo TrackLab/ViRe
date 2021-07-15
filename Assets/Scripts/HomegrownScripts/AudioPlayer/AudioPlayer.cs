@@ -169,6 +169,12 @@ public class AudioPlayer : MonoBehaviour
         playlistGUI.SetActive(!playlistGUI.activeInHierarchy);
     }
 
+    public void skipToTrack(GameObject button){
+        int selectID = (int) Char.GetNumericValue(button.name[button.name.Length-1]);
+        currentTrack = selectID-1;
+        playNextTrack();
+    }
+    
     //Deletes a track from the playlist and skips to the next one
     public void deleteItem(GameObject button){
         Debug.Log("Before: "+playlist.Count);
@@ -178,12 +184,10 @@ public class AudioPlayer : MonoBehaviour
             return;
         }
         playNextTrack();
-        if (selectID < playlist.Count){
-            try{
-                playlist.RemoveAt(selectID);
-                filenames.RemoveAt(selectID);
-            } catch (ArgumentOutOfRangeException){}
-        }
+        try{
+            playlist.RemoveAt(selectID);
+            filenames.RemoveAt(selectID);
+        } catch (ArgumentOutOfRangeException){}
         Debug.Log("After: "+playlist.Count);
         Destroy(playlistGUIcontent.GetChild(selectID).gameObject);
     }
