@@ -4,27 +4,17 @@ using Valve.VR;
 public class AutoScaler : MonoBehaviour
 {
     public float defaultModelHeight = 1.8f;
-    private GameObject head, playerRoot;
+    public GameObject head, playerRoot;
     
-
-    void Awake()
+    void Start()
     {
-        subscribeControls();
-        
-        head = GameObject.Find("Main Camera");
-        playerRoot = GameObject.Find("metarig");
-        
-    }
-
-    private void subscribeControls(){
         SteamVR_Actions._default.Scale[SteamVR_Input_Sources.Any].onStateDown += vrOnScale;
-        //TODO: Keyboard controls
     }
 
     //TODO: Keyboard controls
-    private void vrOnScale(SteamVR_Action_Boolean action, SteamVR_Input_Sources source){Resize();}
+    private void vrOnScale(SteamVR_Action_Boolean action, SteamVR_Input_Sources source){resize();}
 
-    public void Resize()
+    public void resize()
     {   
         float newScale = head.transform.position.y / defaultModelHeight;
         playerRoot.transform.localScale = new Vector3(newScale,newScale,newScale);

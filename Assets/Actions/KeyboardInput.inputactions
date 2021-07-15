@@ -30,17 +30,25 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Yes",
-                    "type": "Button",
-                    "id": "9234d180-cd98-463e-af2c-5de06b452979",
-                    "expectedControlType": "Button",
+                    "name": "Movement",
+                    "type": "Value",
+                    "id": "0a60fbd7-fe84-43c6-b456-1dfdf56bced3",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
                 },
                 {
-                    "name": "No",
+                    "name": "Mouse",
+                    "type": "Value",
+                    "id": "da7b43c8-48a2-449b-b4db-303166006fa0",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "CameraActivate",
                     "type": "Button",
-                    "id": "4f6e1398-ec60-44fe-8057-79b21dadb567",
+                    "id": "9568241c-339c-42cc-80fb-ede6a1d065da",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -81,24 +89,79 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "bc53f435-eef3-4414-8cc1-b05c868f98a0",
-                    "path": "<Keyboard>/y",
+                    "name": "WASD",
+                    "id": "146f7521-66bb-467b-bd7d-1541c48b2347",
+                    "path": "2DVector",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Yes",
+                    "action": "Movement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "b3a09c91-c142-4f2d-94eb-86eee8784334",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "83c170ce-9c97-46c2-aa3b-1a2d17d5ace5",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "6522f9b5-a1e6-440d-a2bf-3c68c7afef83",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "e5d776ac-16d1-46a7-a505-dfacd2c3d20c",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "30b32581-ddd4-4ea8-b97a-f3e185ae7efc",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mouse",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "827f8ca4-4619-4622-8905-b1fa3827cfc7",
-                    "path": "<Keyboard>/n",
+                    "id": "df3e502b-a268-4d43-a248-1d6353077051",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "No",
+                    "action": "CameraActivate",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

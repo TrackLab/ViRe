@@ -1,89 +1,34 @@
 ﻿using UnityEngine;
-using System.Collections;
+using UnityEngine.InputSystem;
  
 public class FlyCamera : MonoBehaviour {
  
-    /*
-    Writen by Windexglow 11-13-10.  Use it, edit it, steal it I don't care.  
-    Converted to C# 27-02-13 - no credit wanted.
-    Simple flycam I made, since I couldn't find any others made public.  
-    Made simple to use (drag and drop, done) for regular keyboard layout  
-    wasd : basic movement
-    shift : Makes camera accelerate
-    space : Moves camera on X and Z axis only.  So camera doesn't gain any height*/
-     
-     
-    float mainSpeed = 5.0f; //regular speed
-    float shiftAdd = 250.0f; //multiplied by how long shift is held.  Basically running
-    float maxShift = 10.0f; //Maximum speed when holdin gshift
-    float minShift = 0.5f; //Minimum speed when holding ctrl
-    float camSens = 0.25f; //How sensitive it with mouse
-    public GameObject DroneObject;
-    private Vector3 lastMouse = new Vector3(255, 255, 255); //kind of in the middle of the screen, rather than at the top (play)
-    private float totalRun= 1.0f;
-     
-    void Update () {
-        if (Input.GetMouseButton(0)){
-            lastMouse = Input.mousePosition - lastMouse ;
-            // Place a - before the lastMouse.y if you want to invert it
-            lastMouse = new Vector3(lastMouse.y * camSens, lastMouse.x * camSens, 0 );
-            lastMouse = new Vector3(transform.eulerAngles.x + lastMouse.x , transform.eulerAngles.y + lastMouse.y, 0);
-            transform.eulerAngles = lastMouse;
-            lastMouse =  Input.mousePosition;
-            //Mouse camera angle done.  
-        }
+    private float mainSpeed = 5.0f; //regular speed
+    private float camSens = 0.25f; //How sensitive it with mouse
+    private Vector2 p;
+    private Vector3 lastMouse;
+    private bool activateCam = false;
 
-        //Keyboard commands
-        //float f = 0.0f;
-        Vector3 p = GetBaseInput();
-        if (Input.GetKey (KeyCode.LeftShift)){
-            totalRun += Time.deltaTime;
-            p  = p * totalRun * shiftAdd;
-            p.x = Mathf.Clamp(p.x, -maxShift, maxShift);
-            p.y = Mathf.Clamp(p.y, -maxShift, maxShift);
-            p.z = Mathf.Clamp(p.z, -maxShift, maxShift);
-        }
-        else if (Input.GetKey (KeyCode.LeftControl)){
-            totalRun += Time.deltaTime;
-            p  = p * totalRun * shiftAdd;
-            p.x = Mathf.Clamp(p.x, -minShift, minShift);
-            p.y = Mathf.Clamp(p.y, -minShift, minShift);
-            p.z = Mathf.Clamp(p.z, -minShift, minShift);
-        }
-        else{
-            totalRun = Mathf.Clamp(totalRun * 0.5f, 1f, 1000f);
-            p = p * mainSpeed;
-        }
-       
-        p = p * Time.deltaTime;
-        Vector3 newPosition = transform.position;
-        if (Input.GetKey(KeyCode.Space)){ //If player wants to move on X and Z axis only
-            transform.Translate(p);
-            // Remove the - in front of the transform.positions if you want to invert it
-            newPosition.x = -transform.position.x;
-            newPosition.z = -transform.position.z;
-            transform.position = newPosition;
-        }
-        else{
-            transform.Translate(p);
-        }
-       
+    public GameObject DroneObject;
+
+    public void onMove(InputAction.CallbackContext value){
+        p = -value.ReadValue<Vector2>();
+        p = p * mainSpeed * Time.deltaTime;
     }
-     
-    private Vector3 GetBaseInput() { //returns the basic values, if it's 0 than it's not active.
-        Vector3 p_Velocity = new Vector3();
-        if (Input.GetKey (KeyCode.W)){
-            p_Velocity += new Vector3(0, 0 , -1);
-        }
-        if (Input.GetKey (KeyCode.S)){
-            p_Velocity += new Vector3(0, 0, 1);
-        }
-        if (Input.GetKey (KeyCode.A)){
-            p_Velocity += new Vector3(1, 0, 0);
-        }
-        if (Input.GetKey (KeyCode.D)){
-            p_Velocity += new Vector3(-1, 0, 0);
-        }
-        return p_Velocity;
+
+    // TODO: Camera flips when the X angle is either max or min. Needs to be clipped
+    public void onMouse(InputAction.CallbackContext value){
+        lastMouse = value.ReadValue<Vector2>();
+        lastMouse = new Vector2(lastMouse.y * camSens, lastMouse.x * camSens);
+        lastMouse = new Vector2(transform.eulerAngles.x + lastMouse.x, transform.eulerAngles.y + lastMouse.y);
+    }
+
+    public void onCameraActivate(InputAction.CallbackContext value){
+        activateCam = !value.canceled;
+    }
+
+    void LateUpdate(){
+        DroneObject.transform.Translate(new Vector3(p.x,0,p.y));
+        if (activateCam){transform.eulerAngles = lastMouse;}
     }
 }
