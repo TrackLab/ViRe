@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 using SimpleFileBrowser;
 
 public class AudioPlayer : MonoBehaviour
@@ -17,6 +18,7 @@ public class AudioPlayer : MonoBehaviour
     public Sprite playButton, pauseButton;
     private List<AudioClip> playlist;
     private List<string> filenames;
+    private Regex buttonMatch = new Regex("[0-9]+");
     private int currentTrack;
     private bool userPause = false;
     private bool switchingTrack = false;
@@ -170,15 +172,14 @@ public class AudioPlayer : MonoBehaviour
     }
 
     public void skipToTrack(GameObject button){
-        int selectID = (int) Char.GetNumericValue(button.name[button.name.Length-1]);
+        int selectID = Int32.Parse(buttonMatch.Match(button.name).Captures[0].ToString());
         currentTrack = selectID-1;
         playNextTrack();
     }
     
     //Deletes a track from the playlist and skips to the next one
     public void deleteItem(GameObject button){
-        Debug.Log("Before: "+playlist.Count);
-        int selectID = (int) Char.GetNumericValue(button.name[button.name.Length-1]);
+        int selectID = Int32.Parse(buttonMatch.Match(button.name).Captures[0].ToString());
         if (playlist.Count == 1){
             clearPlaylist();
             return;
@@ -188,7 +189,6 @@ public class AudioPlayer : MonoBehaviour
             playlist.RemoveAt(selectID);
             filenames.RemoveAt(selectID);
         } catch (ArgumentOutOfRangeException){}
-        Debug.Log("After: "+playlist.Count);
         Destroy(playlistGUIcontent.GetChild(selectID).gameObject);
     }
 
