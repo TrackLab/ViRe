@@ -1,0 +1,2 @@
+This plugin was removed because to save space. It was a model conversion helper that does not run during execution but causes compile warnings.
+Because artifacts from this plugin remain in the project, this folder holds the LICENSE file for the script.
