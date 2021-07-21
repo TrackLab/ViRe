@@ -3,12 +3,12 @@
 public class CopyTransform : MonoBehaviour
 {
 
-    /**
+    /*
         IMPORTANT: This is a patented mess
 
         This script copies transform information from an object to the one this script is on
         You can also apply a specific offset to a parameter or lock it to a value using the Unity Editor
-    **/
+    */
     
     public Transform CopyFrom;
     private Transform PasteTo;
@@ -37,7 +37,6 @@ public class CopyTransform : MonoBehaviour
     public bool LockZAngle = false;
     public float ZAngle = 0f;
 
-    private float Xpos, Ypos, Zpos, Xquat, Yquat, Zquat;
     private Quaternion rotate = new Quaternion();
     private Vector3 position;
 
@@ -49,6 +48,8 @@ public class CopyTransform : MonoBehaviour
     void Update()
     {
         if (EnableCopyLocation){
+            float Xpos, Ypos, Zpos;
+
             if (ApplyXOffset) {Xpos = CopyFrom.position.x-X;}
             else if (LockX) {Xpos = X;}
             else {Xpos = CopyFrom.position.x;}
@@ -60,32 +61,28 @@ public class CopyTransform : MonoBehaviour
             if (ApplyZOffset) {Zpos = CopyFrom.position.z-Z;}
             else if (LockZ) {Zpos = Z;}
             else{Zpos = CopyFrom.position.z;}
-        } else {
-            Xpos = PasteTo.position.x;
-            Ypos = PasteTo.position.y;
-            Zpos = PasteTo.position.z;
-        }
-        
-        position = new Vector3(Xpos,Ypos,Zpos);
 
+            position = new Vector3(Xpos,Ypos,Zpos);
+        } else {position = PasteTo.position;}
+              
 
         if (EnableCopyRotation){
-            if (ApplyXAngleOffset){Xquat = CopyFrom.eulerAngles.x-XAngle;}
-            else if (LockXAngle){Xquat = XAngle;}
-            else {Xquat = CopyFrom.eulerAngles.x;}
+            float Xquat, Yquat, Zquat;
+            Xquat = Yquat = Zquat = 0;
+            rotate = CopyFrom.rotation;
 
-            if (ApplyYAngleOffset){Yquat = CopyFrom.eulerAngles.y-YAngle;}
-            else if (LockYAngle){Yquat = YAngle;}
-            else {Yquat = CopyFrom.eulerAngles.y;}
+            if (ApplyXAngleOffset){Xquat = XAngle;}
+            else if (LockXAngle){rotate.x = PasteTo.rotation.x;}
 
-            if (ApplyZAngleOffset){Zquat = CopyFrom.eulerAngles.z-ZAngle;}
-            else if (LockZAngle){Zquat = ZAngle;}
-            else {Zquat = CopyFrom.eulerAngles.z;}
+            if (ApplyYAngleOffset){Yquat = YAngle;}
+            else if (LockYAngle){rotate.y = PasteTo.rotation.y;}
 
+            if (ApplyZAngleOffset){Zquat = ZAngle;}
+            else if (LockZAngle){rotate.z = PasteTo.rotation.z;}
 
-            rotate = Quaternion.Euler(Xquat,Yquat,Zquat);
+            rotate = rotate * Quaternion.Euler(Xquat,Yquat,Zquat);
         } 
-        else {rotate = new Quaternion(CopyFrom.rotation.x,CopyFrom.rotation.y,CopyFrom.rotation.z,CopyFrom.rotation.w);}
+        else {rotate = PasteTo.rotation;}
 
         PasteTo.SetPositionAndRotation(position,rotate);
     }
