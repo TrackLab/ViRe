@@ -10,7 +10,7 @@ Material:
   m_Name: Light Bulb
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _EMISSION _GLOSSYREFLECTIONS_OFF _SPECULARHIGHLIGHTS_OFF
-  m_LightmapFlags: 2
+  m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -74,5 +74,5 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 0.96759325, b: 0.7877358, a: 1}
-    - _EmissionColor: {r: 1, g: 0.9808731, b: 0.9481132, a: 1}
+    - _EmissionColor: {r: 1, g: 0.97278666, b: 0.9292453, a: 1}
   m_BuildTextureStacks: []
