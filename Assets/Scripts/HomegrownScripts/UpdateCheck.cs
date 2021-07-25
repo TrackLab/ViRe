@@ -6,8 +6,11 @@ using UnityEngine;
 public class UpdateCheck : MonoBehaviour
 {
 
-    public TMPro.TextMeshProUGUI versionText;
+    public TMPro.TextMeshProUGUI newversionText;
+    public TMPro.TextMeshProUGUI currentversionText;
     public GameObject versionNotifWindow;
+
+    private string currentVersion;
 
     public void check()
     {
@@ -23,7 +26,7 @@ public class UpdateCheck : MonoBehaviour
         string currentVersion = Application.version.TrimEnd('A');
         string webVersion = findRelease(net.downloadHandler.text);
         if (!webVersion.Equals(currentVersion) && !currentVersion.Equals("")){
-            setNotifier(webVersion+'A');
+            setNotifier(webVersion+'A', currentVersion+'A');
         }
     }
 
@@ -38,8 +41,10 @@ public class UpdateCheck : MonoBehaviour
     }
 
     //Show the notifier window with the new version number
-    private void setNotifier(string webVersion){
+    private void setNotifier(string webVersion, string currentVersion){
         versionNotifWindow.SetActive(true);
-        versionText.text = webVersion;
+
+        newversionText.text = webVersion;
+        currentversionText.text = currentVersion;
     }
 }
