@@ -6,9 +6,9 @@
 <img align="left" width="420" src="https://user-images.githubusercontent.com/35671643/120828443-d1a75680-c55c-11eb-98a9-0e1a459c6636.png" />
 <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 ViRe can be used for anyone who wants to record motion, but cannot afford a huge and expensive motion capture studio. <br />
-All you need is a simple VR Setup. ViRe runs on top of OpenXR, an asset to support all kinds of VR Headsets. <br /><br />
+All you need is a simple VR Setup. ViRe runs on top of SteamVR, the default asset to support all kinds of VR Headsets. <br /><br />
 
-We made a video to showcase and explain ViRe. Simply click on the YouTube logo to watch it.
+We made a video to showcase and explain ViRe. Simply click on the YouTube logo to watch it. The video is a little outdated compared to ViRes current style, but the general explanations still apply 
 <br /><br />
 <a href="https://www.youtube.com/watch?v=TfnD7U9Bu2g" target="_blank">
   <img width="220" border="0" align="left"  src="https://user-images.githubusercontent.com/35671643/120836631-11bf0700-c566-11eb-97ea-256f208d2e3f.png"/>
@@ -51,7 +51,7 @@ If you have questions about ViRe, got feature suggestions or just want to talk t
 | Feature                                       | Status        |
 | ----------------------------------------------|:-------------:|
 | Motion tracking via controllers and headset | ✔ Working  |
-| Recording to a BVH file format. Usable in Blender | ✔ Working |
+| Recording to a BVH file format. Usable in Blender and other BVH supporting programs | ✔ Working |
 | Spectrator camera | ✔ Working |
 | Windows support | ✔ Working |
 | VR compatible menu | ✔ Working |
