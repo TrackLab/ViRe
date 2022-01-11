@@ -2,6 +2,7 @@
 <br /><br /><br /><br /><br /><br /><br />
 
 ### ViRe is an open-source VR mocap studio built in Unity
+### Don't Worry about the last update being half a year ago. ViRe is still in development. I just have to get some VR Tracker to add the last key feature.
 
 <img align="left" width="420" src="https://user-images.githubusercontent.com/35671643/120828443-d1a75680-c55c-11eb-98a9-0e1a459c6636.png" />
 <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
