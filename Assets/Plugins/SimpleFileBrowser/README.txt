@@ -10,6 +10,11 @@ This plugin helps you show save/load dialogs during gameplay with its uGUI based
 ### HOW TO
 The file browser can be shown either as a save dialog or a load dialog. In load mode, the returned path(s) always lead to existing files or folders. In save mode, the returned path(s) can point to non-existing files, as well.
 
+File browser comes bundled with two premade skins in the Skins directory: LightSkin and DarkSkin. New UISkins can be created via "Assets-Create-yasirkula-SimpleFileBrowser-UI Skin". A UISkin can be assigned to the file browser in two ways:
+
+- By changing SimpleFileBrowserCanvas prefab's Skin field
+- By changing the value of FileBrowser.Skin property from a C# script
+
 
 ### NEW INPUT SYSTEM SUPPORT
 This plugin supports Unity's new Input System but it requires some manual modifications (if both the legacy and the new input systems are active at the same time, no changes are needed):
@@ -30,6 +35,9 @@ If you are sure that your plugin is up-to-date, then enable "Custom Proguard Fil
 - File browser doesn't show any files on Android 10+
 File browser uses Storage Access Framework on these Android versions and users must first click the "Pick Folder" button in the quick links section
 
+- File browser doesn't show any files on Unity 2021.3.x
+Please see: https://github.com/yasirkula/UnitySimpleFileBrowser/issues/70
+
 - RequestPermission returns Permission.Denied on Android
 Declare the WRITE_EXTERNAL_STORAGE permission manually in your Plugins/Android/AndroidManifest.xml file as follows: <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:node="replace"/>
 You'll need to add the following attribute to the '<manifest ...>' element: xmlns:tools="http://schemas.android.com/tools"
@@ -49,6 +57,9 @@ public enum PickMode { Files = 0, Folders = 1, FilesAndFolders = 2 };
 public delegate void OnSuccess( string[] paths );
 public delegate void OnCancel();
 
+// Changing the dialog's skin
+public static UISkin Skin { get; set; }
+
 // Showing dialog
 bool ShowSaveDialog( OnSuccess onSuccess, OnCancel onCancel, PickMode pickMode, bool allowMultiSelection = false, string initialPath = null, string initialFilename = null, string title = "Save", string saveButtonText = "Save" );
 bool ShowLoadDialog( OnSuccess onSuccess, OnCancel onCancel, PickMode pickMode, bool allowMultiSelection = false, string initialPath = null, string initialFilename = null, string title = "Load", string loadButtonText = "Select" );
@@ -61,6 +72,8 @@ void HideDialog( bool invokeCancelCallback = false );
 
 // Customizing the dialog
 bool AddQuickLink( string name, string path, Sprite icon = null );
+void ClearQuickLinks();
+
 void SetExcludedExtensions( params string[] excludedExtensions );
 
 // Filters should include the period (e.g. ".jpg" instead of "jpg")
@@ -70,6 +83,10 @@ void SetFilters( bool showAllFilesFilter, IEnumerable<FileBrowser.Filter> filter
 void SetFilters( bool showAllFilesFilter, params FileBrowser.Filter[] filters );
 
 bool SetDefaultFilter( string defaultFilter );
+
+// Filtering displayed files/folders programmatically
+delegate bool FileSystemEntryFilter( FileSystemEntry entry );
+event FileSystemEntryFilter DisplayedEntriesFilter;
 
 // Android runtime permissions
 FileBrowser.Permission CheckPermission();
@@ -81,7 +98,7 @@ bool FileBrowserHelpers.FileExists( string path );
 bool FileBrowserHelpers.DirectoryExists( string path );
 bool FileBrowserHelpers.IsDirectory( string path );
 string FileBrowserHelpers.GetDirectoryName( string path );
-FileSystemEntry[] FileBrowserHelpers.GetEntriesInDirectory( string path ); // Returns all files and folders in a directory
+FileSystemEntry[] FileBrowserHelpers.GetEntriesInDirectory( string path, bool extractOnlyLastSuffixFromExtensions ); // Returns all files and folders in a directory. If you want "File.tar.gz"s extension to be extracted as ".tar.gz" instead of ".gz", set 'extractOnlyLastSuffixFromExtensions' to false
 string FileBrowserHelpers.CreateFileInDirectory( string directoryPath, string filename ); // Returns the created file's path
 string FileBrowserHelpers.CreateFolderInDirectory( string directoryPath, string folderName ); // Returns the created folder's path
 void FileBrowserHelpers.WriteBytesToFile( string targetPath, byte[] bytes );
