@@ -6,9 +6,9 @@ using UnityEngine;
 public class UpdateCheck : MonoBehaviour
 {
 
-    public TMPro.TextMeshProUGUI newversionText;
-    public TMPro.TextMeshProUGUI currentversionText;
-    public GameObject versionNotifWindow;
+    public TMPro.TextMeshProUGUI newVersionText;
+    public TMPro.TextMeshProUGUI currentVersionText;
+    public GameObject versionNotificationWindow;
 
     private string currentVersion;
 
@@ -42,9 +42,14 @@ public class UpdateCheck : MonoBehaviour
 
     //Show the notifier window with the new version number
     private void setNotifier(string webVersion, string currentVersion){
-        versionNotifWindow.SetActive(true);
+        versionNotificationWindow.SetActive(true);
 
-        newversionText.text = webVersion;
-        currentversionText.text = currentVersion;
+        newVersionText.text = webVersion;
+        currentVersionText.text = currentVersion;
+    }
+
+    public void OpenGitHubPage()
+    {
+        Application.OpenURL("https://github.com/TrackLab/ViRe/releases");
     }
 }
