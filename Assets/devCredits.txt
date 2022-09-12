@@ -1,5 +1,5 @@
 TrackLab | https://github.com/tracklab
-Author, 3D Moddeling, Scripting
+Author, 3D Modeling, Scripting
 
 SarenDev | https://github.com/sarendev
 Co-author, Scripting, Debugging
