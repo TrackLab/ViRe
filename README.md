@@ -15,7 +15,7 @@ We made a video to showcase and explain ViRe. Simply click on the YouTube logo t
 </a>
 <br /><br />
 
-### ViRe definitely works with the following headsets <br />
+## ViRe definitely works with the following headsets <br />
 
 <img align="left" width="64" alt="HTC Vive" src="https://user-images.githubusercontent.com/35671643/120832445-f4d40500-c560-11eb-8290-f46a808628af.png" />
 <img align="left" width="64" alt="Valve Index" src="https://user-images.githubusercontent.com/35671643/120832666-32d12900-c561-11eb-8c3a-7cdb1ea80ca3.jpg" />
@@ -23,11 +23,11 @@ We made a video to showcase and explain ViRe. Simply click on the YouTube logo t
 <br /> <br /> <br />
 It very well may run with other headsets as well, but we can't guarantee it (yet). If it works on an unlisted headset, do tell us. <br />
 
-### ViRe is currently in the Alpha
+## ViRe is currently in the Alpha
 
 It supports the tracking of the headset and both hand controllers. We are working on support for additional body trackers, and for every place you do not have a tracker, procedural bone movement will help out.
 
-### Support ViRe
+## Support ViRe
 
 As our team is really small, development will be slow. We really appreciate you sticking around for the process and thank you for considering (or maybe actively) contributing.
 
@@ -43,16 +43,19 @@ You can also support ViRe by donating on [Patreon]
 
 [Patreon]: https://www.patreon.com/tracklab
 
-### Talk to us
+## Talk to us
 
 If you have questions about ViRe, got feature suggestions or just want to talk to us directly, you can join our Discord server. </br>
 
 <a href="https://discord.gg/8yzVHS7XUF" target="_blank">
   <img width="100" border="0" align="left"  src="https://user-images.githubusercontent.com/35671643/120851103-ab8faf80-c578-11eb-86d3-c1bdf0c2a6e7.png"/>
 </a>
+
 <br /><br /><br /><br /><br />
 
 ## Feature development
+
+Built on Unity 2021.3.9f1 LTS
 
 | Feature                                       | Status        |
 | ----------------------------------------------|:-------------:|
