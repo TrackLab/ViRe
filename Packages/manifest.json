@@ -1,9 +1,9 @@
 {
   "dependencies": {
     "com.unity.2d.sprite": "1.0.0",
-    "com.unity.collab-proxy": "1.17.2",
+    "com.unity.collab-proxy": "1.17.6",
     "com.unity.ide.vscode": "1.2.5",
-    "com.unity.inputsystem": "1.4.2",
+    "com.unity.inputsystem": "1.4.4",
     "com.unity.test-framework": "1.1.33",
     "com.unity.textmeshpro": "3.0.6",
     "com.unity.timeline": "1.6.4",
