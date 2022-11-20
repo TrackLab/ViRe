@@ -18,7 +18,7 @@ public class MapTransform
         IKTarget.rotation = vrTarget.rotation * Quaternion.Euler(trackingRotationOffset);
     }
 }
-public class RigController : MonoBehaviour
+public class UpperRigController : MonoBehaviour
 {
     [SerializeField] private MapTransform head;
     [SerializeField] private MapTransform leftHand;
