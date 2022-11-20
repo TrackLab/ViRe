@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "com.unity.2d.sprite": "1.0.0",
+    "com.unity.animation.rigging": "1.1.1",
     "com.unity.collab-proxy": "1.17.6",
     "com.unity.ide.vscode": "1.2.5",
     "com.unity.inputsystem": "1.4.4",
