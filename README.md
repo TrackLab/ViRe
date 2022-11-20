@@ -23,9 +23,11 @@ We made a video to showcase and explain ViRe. Simply click on the YouTube logo t
 <br /> <br /> <br />
 It very well may run with other headsets as well, but we can't guarantee it (yet). If it works on an unlisted headset, do tell us. <br />
 
-## ViRe is currently in the Alpha
+## ViRe is currently in Alpha
 
-It supports the tracking of the headset and both hand controllers. We are working on support for additional body trackers, and for every place you do not have a tracker, procedural bone movement will help out.
+Bugs are still abound and things are missing.
+
+Currently, ViRe supports the tracking of the headset and both hand controllers, as well as procedural movement for those without additional body trackers. But there are lots of other things we plan on adding ([check out the list](#feature-development)) and we're always looking for feedback!
 
 ## Support ViRe
 
@@ -34,6 +36,8 @@ As our team is really small, development will be slow. We really appreciate you 
 If you'd like to help develop ViRe, fork it, clone and send us a pull request to update ViRe.
 
 Got a headset we don't have full support for? Help us out by testing! Check out our Discord link below.
+
+Found a bug? Let us know on via that same Discord server!
 
 You can also support ViRe by donating on [Patreon]
 
@@ -45,7 +49,7 @@ You can also support ViRe by donating on [Patreon]
 
 ## Talk to us
 
-If you have questions about ViRe, got feature suggestions or just want to talk to us directly, you can join our Discord server. </br>
+If you have questions about ViRe, got feature suggestions or bugs, or just want to talk to us directly, you can join our Discord server. </br>
 
 <a href="https://discord.gg/8yzVHS7XUF" target="_blank">
   <img width="100" border="0" align="left"  src="https://user-images.githubusercontent.com/35671643/120851103-ab8faf80-c578-11eb-86d3-c1bdf0c2a6e7.png"/>
@@ -55,7 +59,7 @@ If you have questions about ViRe, got feature suggestions or just want to talk t
 
 ## Feature development
 
-Built on Unity 2021.3.9f1 LTS
+Built on Unity 2021.3.14f1 LTS
 
 | Feature                                       | Status        |
 | ----------------------------------------------|:-------------:|
@@ -67,7 +71,7 @@ Built on Unity 2021.3.9f1 LTS
 | Oculus headset support | ✔ Working |
 | Valve Index headset support | ⌛ Verifying (talk to us) |
 | Motion tracking via Vive trackers | 📝 Planned |
-| Procedural leg movement w/o Vive trackers | 📝 Planned |
+| Procedural leg movement w/o Vive trackers | ✔ Working |
 | Linux support | ⚠ Unknown (see wiki) |
 
 More to come with updates
