@@ -20,11 +20,8 @@ public class RecOptPanel : MonoBehaviour
         recorder = GameObject.Find("ViRe_Character").GetComponent<BVHRecorder>();
         pathtext = GameObject.Find("PathField").GetComponentInChildren<TMPro.TextMeshProUGUI>();
         pathC = PlayerPrefs.GetString("RecPath", System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));
-        string fpsL = PlayerPrefs.GetString("RecFPS", "60");
-        try{framerate = Int32.Parse(fpsL);}
-        catch(FormatException){framerate = 60;}
-
-        writeSettings();
+        framerate = PlayerPrefs.GetInt("RecFPS", 60);
+        updateUI();
     }
 
     public void changeFramerate(GameObject button){
@@ -44,23 +41,28 @@ public class RecOptPanel : MonoBehaviour
         writeSettings();
     }
 
-    //Writes the settings to both Player Preferences and the Recorder, as well as output them to their fields
-    private void writeSettings(){
-        if (!Directory.Exists(pathC)){
-            pathC = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-        }
+    private void updateUI(){
         pathtext.text = pathC;
 
         foreach (Button button in buttons){
             if (button.name == framerate+"FPS"){button.interactable = false;}
             else{button.interactable = true;}
         }
+    }
+
+    //Writes the settings to both Player Preferences and the Recorder, as well as output them to their fields
+    private void writeSettings(){
+        if (!Directory.Exists(pathC)){
+            pathC = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        }
+        
+        updateUI();
 
         recorder.directory = pathC;
         recorder.frameRate = framerate;
 
         PlayerPrefs.SetString("RecPath", pathC);
-        PlayerPrefs.SetString("RecFPS", framerate.ToString());
+        PlayerPrefs.SetInt("RecFPS", framerate);
         PlayerPrefs.Save();
     }
 }
