@@ -8,8 +8,8 @@ public class IKFootSolver : MonoBehaviour
     [SerializeField] Transform body = default;
     [SerializeField] IKFootSolver otherFoot = default;
     [SerializeField] float speed = 1;
-    [SerializeField] float stepDistance = 4;
-    [SerializeField] float stepLength = 4;
+    public float stepDistance = 4;
+    public float stepLength = 4;
     [SerializeField] float stepHeight = 1;
     [SerializeField] Vector3 footOffset = default;
     float footSpacing;
