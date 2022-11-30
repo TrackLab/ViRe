@@ -7,6 +7,7 @@ public class MoveOptPanel : MonoBehaviour
     private TMPro.TextMeshProUGUI STval, SDval;
     private float threshold, distance;
 
+    //Load the IK settings or set them to defaults
     void Start(){
         leftLeg = GameObject.Find("LeftAnkleController").GetComponent<IKFootSolver>();
         rightLeg = GameObject.Find("RightAnkleController").GetComponent<IKFootSolver>();
@@ -14,9 +15,8 @@ public class MoveOptPanel : MonoBehaviour
         SDval = GameObject.Find("SDVal").GetComponentInChildren<TMPro.TextMeshProUGUI>();
 
         threshold = PlayerPrefs.GetFloat("IKthreshold", leftLeg.stepDistance);
-        STval.text = threshold.ToString();
         distance = PlayerPrefs.GetFloat("IKdistance", leftLeg.stepLength);
-        SDval.text = distance.ToString();
+        updateText();
     }
 
     public void updateDistance(bool incr){
@@ -25,7 +25,7 @@ public class MoveOptPanel : MonoBehaviour
         } else {
             distance = (float) Math.Round((distance-0.05f)*100f)/100f;
         }
-        SDval.text = distance.ToString();
+        updateText();
         writeSettings();
     }
 
@@ -35,15 +35,19 @@ public class MoveOptPanel : MonoBehaviour
         } else {
             threshold = (float) Math.Round((threshold-0.05f)*100f)/100f;
         }
-        STval.text = threshold.ToString();
+        updateText();
         writeSettings();
     }
 
+    private void updateText(){
+        SDval.text = distance.ToString();
+        STval.text = threshold.ToString();
+    }
+
+    //Write changes to IK scripts and Player Preferences
     private void writeSettings(){
-        leftLeg.stepLength = distance;
-        leftLeg.stepDistance = threshold;
-        rightLeg.stepLength = distance;
-        rightLeg.stepDistance = threshold;
+        leftLeg.stepLength = rightLeg.stepLength = distance;
+        leftLeg.stepDistance = rightLeg.stepDistance = threshold;
 
         PlayerPrefs.SetFloat("IKthreshold", threshold);
         PlayerPrefs.SetFloat("IKdistance", distance);
