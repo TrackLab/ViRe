@@ -54,24 +54,6 @@
             },
             {
                "inputs" : {
-                  "force" : {
-                     "output" : "/actions/default/in/squeeze"
-                  }
-               },
-               "mode" : "force_sensor",
-               "path" : "/user/hand/left/input/grip"
-            },
-            {
-               "inputs" : {
-                  "force" : {
-                     "output" : "/actions/default/in/squeeze"
-                  }
-               },
-               "mode" : "force_sensor",
-               "path" : "/user/hand/right/input/grip"
-            },
-            {
-               "inputs" : {
                   "click" : {
                      "output" : "/actions/default/in/record"
                   }
@@ -81,24 +63,6 @@
             },
             {
                "inputs" : {
-                  "click" : {
-                     "output" : "/actions/default/in/interactui"
-                  }
-               },
-               "mode" : "button",
-               "path" : "/user/hand/right/input/trigger"
-            },
-            {
-               "inputs" : {
-                  "click" : {
-                     "output" : "/actions/default/in/record"
-                  }
-               },
-               "mode" : "button",
-               "path" : "/user/hand/right/input/trackpad"
-            },
-            {
-               "inputs" : {
                   "north" : {
                      "output" : "/actions/default/in/teleport"
                   }
@@ -107,37 +71,6 @@
                "parameters" : {
                   "deadzone_pct" : "25",
                   "overlap_pct" : "30",
-                  "sub_mode" : "touch"
-               },
-               "path" : "/user/hand/left/input/thumbstick"
-            },
-            {
-               "inputs" : {
-                  "north" : {
-                     "output" : "/actions/default/in/teleport"
-                  }
-               },
-               "mode" : "dpad",
-               "parameters" : {
-                  "deadzone_pct" : "25",
-                  "overlap_pct" : "30",
-                  "sub_mode" : "touch"
-               },
-               "path" : "/user/hand/right/input/thumbstick"
-            },
-            {
-               "inputs" : {
-                  "east" : {
-                     "output" : "/actions/default/in/snapturnright"
-                  },
-                  "west" : {
-                     "output" : "/actions/default/in/snapturnleft"
-                  }
-               },
-               "mode" : "dpad",
-               "parameters" : {
-                  "deadzone_pct" : "85",
-                  "overlap_pct" : "0",
                   "sub_mode" : "touch"
                },
                "path" : "/user/hand/left/input/thumbstick"
@@ -157,7 +90,7 @@
                   "overlap_pct" : "0",
                   "sub_mode" : "touch"
                },
-               "path" : "/user/hand/right/input/thumbstick"
+               "path" : "/user/hand/left/input/thumbstick"
             },
             {
                "inputs" : {
@@ -171,6 +104,24 @@
             {
                "inputs" : {
                   "click" : {
+                     "output" : "/actions/default/in/scale"
+                  }
+               },
+               "mode" : "button",
+               "path" : "/user/hand/left/input/a"
+            },
+            {
+               "inputs" : {
+                  "click" : {
+                     "output" : "/actions/default/in/scale"
+                  }
+               },
+               "mode" : "button",
+               "path" : "/user/hand/right/input/a"
+            },
+            {
+               "inputs" : {
+                  "click" : {
                      "output" : "/actions/default/in/pause"
                   }
                },
@@ -179,21 +130,42 @@
             },
             {
                "inputs" : {
-                  "click" : {
-                     "output" : "/actions/default/in/scale"
+                  "north" : {
+                     "output" : "/actions/default/in/teleport"
                   }
                },
-               "mode" : "button",
-               "path" : "/user/hand/left/input/grip"
+               "mode" : "dpad",
+               "path" : "/user/hand/right/input/thumbstick"
+            },
+            {
+               "inputs" : {
+                  "east" : {
+                     "output" : "/actions/default/in/snapturnright"
+                  },
+                  "west" : {
+                     "output" : "/actions/default/in/snapturnleft"
+                  }
+               },
+               "mode" : "dpad",
+               "path" : "/user/hand/right/input/thumbstick"
             },
             {
                "inputs" : {
                   "click" : {
-                     "output" : "/actions/default/in/scale"
+                     "output" : "/actions/default/in/record"
                   }
                },
                "mode" : "button",
-               "path" : "/user/hand/right/input/grip"
+               "path" : "/user/hand/right/input/trackpad"
+            },
+            {
+               "inputs" : {
+                  "click" : {
+                     "output" : "/actions/default/in/interactui"
+                  }
+               },
+               "mode" : "button",
+               "path" : "/user/hand/right/input/trigger"
             }
          ]
       },
@@ -208,6 +180,7 @@
    "category" : "steamvr_input",
    "controller_type" : "knuckles",
    "description" : "",
+   "interaction_profile" : "",
    "name" : "knuckles_default",
    "options" : {},
    "simulated_actions" : []
