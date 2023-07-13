@@ -24,12 +24,20 @@
          ],
          "poses" : [
             {
-               "output" : "/actions/default/in/pose",
+               "output" : "none",
                "path" : "/user/hand/left/pose/base"
             },
             {
-               "output" : "/actions/default/in/pose",
+               "output" : "none",
                "path" : "/user/hand/right/pose/base"
+            },
+            {
+               "output" : "/actions/default/in/pose",
+               "path" : "/user/hand/left/pose/raw"
+            },
+            {
+               "output" : "/actions/default/in/pose",
+               "path" : "/user/hand/right/pose/raw"
             }
          ],
          "skeleton" : [
@@ -135,6 +143,9 @@
                   }
                },
                "mode" : "dpad",
+               "parameters" : {
+                  "sub_mode" : "touch"
+               },
                "path" : "/user/hand/right/input/thumbstick"
             },
             {
@@ -147,6 +158,9 @@
                   }
                },
                "mode" : "dpad",
+               "parameters" : {
+                  "sub_mode" : "touch"
+               },
                "path" : "/user/hand/right/input/thumbstick"
             },
             {
