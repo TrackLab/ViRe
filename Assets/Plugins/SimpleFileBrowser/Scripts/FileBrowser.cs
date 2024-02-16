@@ -119,7 +119,7 @@ namespace SimpleFileBrowser
 				string result = string.Empty;
 
 				if( name != null )
-					result += name;
+					result = name;
 
 				if( extensions != null )
 				{
@@ -160,6 +160,7 @@ namespace SimpleFileBrowser
 		private UISkin prevSkin;
 #endif
 		private int m_skinVersion = 0;
+		private int m_skinPrevFontSize;
 		private Sprite m_skinPrevDriveIcon, m_skinPrevFolderIcon;
 		public static UISkin Skin
 		{
@@ -409,14 +410,16 @@ namespace SimpleFileBrowser
 		[SerializeField]
 		private FileBrowserMovement window;
 		private RectTransform windowTR;
+		private VerticalLayoutGroup windowLayoutGroup;
+
+		[SerializeField]
+		private LayoutElement[] windowResponsiveRows;
 
 		[SerializeField]
 		private RectTransform topViewNarrowScreen;
 
 		[SerializeField]
-		private RectTransform middleView;
-		private Vector2 middleViewOriginalPosition;
-		private Vector2 middleViewOriginalSize;
+		private Image middleView;
 
 		[SerializeField]
 		private RectTransform middleViewQuickLinks;
@@ -426,7 +429,7 @@ namespace SimpleFileBrowser
 		private RectTransform middleViewFiles;
 
 		[SerializeField]
-		private RectTransform middleViewSeparator;
+		private Image middleViewSeparator;
 
 		[SerializeField]
 		private FileBrowserItem itemPrefab;
@@ -438,6 +441,9 @@ namespace SimpleFileBrowser
 
 		[SerializeField]
 		private Text titleText;
+
+		[SerializeField]
+		private Image titleBackground;
 
 		[SerializeField]
 		private Button backButton;
@@ -489,11 +495,7 @@ namespace SimpleFileBrowser
 
 		[SerializeField]
 		private Dropdown filtersDropdown;
-
-		[SerializeField]
 		private RectTransform filtersDropdownContainer;
-
-		[SerializeField]
 		private Text filterItemTemplate;
 
 		[SerializeField]
@@ -545,6 +547,7 @@ namespace SimpleFileBrowser
 
 		private readonly List<Filter> filters = new List<Filter>();
 		private Filter allFilesFilter;
+		private readonly List<string> filterLabels = new List<string>( 4 );
 
 		private bool showAllFilesFilter = true;
 
@@ -807,12 +810,13 @@ namespace SimpleFileBrowser
 		{
 			m_instance = this;
 
+			canvas = GetComponent<Canvas>();
 			rectTransform = (RectTransform) transform;
 			windowTR = (RectTransform) window.transform;
-			canvas = GetComponent<Canvas>();
+			windowLayoutGroup = window.GetComponent<VerticalLayoutGroup>();
+			filtersDropdownContainer = filtersDropdown.template;
+			filterItemTemplate = filtersDropdown.itemText;
 
-			middleViewOriginalPosition = middleView.anchoredPosition;
-			middleViewOriginalSize = middleView.sizeDelta;
 			middleViewQuickLinksOriginalSize = middleViewQuickLinks.sizeDelta;
 
 			nullPointerEventData = new PointerEventData( null );
@@ -843,6 +847,7 @@ namespace SimpleFileBrowser
 
 			allFilesFilter = new Filter( AllFilesFilterText );
 			filters.Add( allFilesFilter );
+			filterLabels.Add( allFilesFilter.ToString() );
 
 			invalidFilenameChars = new HashSet<char>( Path.GetInvalidFileNameChars() )
 			{
@@ -940,9 +945,9 @@ namespace SimpleFileBrowser
 						RenameSelectedFile();
 
 #if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
-					if( Keyboard.current[Key.A].wasPressedThisFrame && Keyboard.current.ctrlKey.isPressed )
+					if( Keyboard.current[Key.A].wasPressedThisFrame && IsCtrlKeyHeld() )
 #else
-					if( Input.GetKeyDown( KeyCode.A ) && ( Input.GetKey( KeyCode.LeftControl ) || Input.GetKey( KeyCode.LeftCommand ) ) )
+					if( Input.GetKeyDown( KeyCode.A ) && IsCtrlKeyHeld() )
 #endif
 						SelectAllFiles();
 				}
@@ -1228,11 +1233,18 @@ namespace SimpleFileBrowser
 
 		private void RefreshSkin()
 		{
-			window.GetComponent<Image>().color = m_skin.WindowColor;
-			middleView.GetComponent<Image>().color = m_skin.FilesListColor;
-			middleViewSeparator.GetComponent<Image>().color = m_skin.FilesVerticalSeparatorColor;
+			windowLayoutGroup.spacing = m_skin.RowSpacing;
 
-			titleText.transform.parent.GetComponent<Image>().color = m_skin.TitleBackgroundColor;
+			for( int i = 0; i < windowResponsiveRows.Length; i++ )
+				windowResponsiveRows[i].preferredHeight = m_skin.RowHeight;
+
+			moreOptionsContextMenuPosition.anchoredPosition = new Vector2( moreOptionsContextMenuPosition.anchoredPosition.x, -m_skin.RowSpacing );
+
+			window.GetComponent<Image>().color = m_skin.WindowColor;
+			middleView.color = m_skin.FilesListColor;
+			middleViewSeparator.color = m_skin.FilesVerticalSeparatorColor;
+
+			titleBackground.color = m_skin.TitleBackgroundColor;
 			m_skin.ApplyTo( titleText, m_skin.TitleTextColor );
 
 			backButton.image.color = m_skin.HeaderButtonsColor;
@@ -1245,9 +1257,12 @@ namespace SimpleFileBrowser
 			upButton.image.sprite = m_skin.HeaderUpButton;
 			moreOptionsButton.image.sprite = m_skin.HeaderContextMenuButton;
 
-			Image windowResizeGizmo = resizeCursorHandler.GetComponent<Image>();
-			windowResizeGizmo.color = m_skin.WindowResizeGizmoColor;
-			windowResizeGizmo.sprite = m_skin.WindowResizeGizmo;
+			if( resizeCursorHandler )
+			{
+				Image windowResizeGizmo = resizeCursorHandler.GetComponent<Image>();
+				windowResizeGizmo.color = m_skin.WindowResizeGizmoColor;
+				windowResizeGizmo.sprite = m_skin.WindowResizeGizmo;
+			}
 
 			m_skin.ApplyTo( filenameInputField );
 			m_skin.ApplyTo( pathInputField );
@@ -1294,8 +1309,12 @@ namespace SimpleFileBrowser
 			fileOperationConfirmationPanel.RefreshSkin( m_skin );
 			accessRestrictedPanel.RefreshSkin( m_skin );
 
+			if( m_skin.FontSize != m_skinPrevFontSize )
+				RefreshFiltersDropdownWidth();
+
 			listView.OnSkinRefreshed();
 
+			m_skinPrevFontSize = m_skin.FontSize;
 			m_skinPrevDriveIcon = m_skin.DriveIcon;
 			m_skinPrevFolderIcon = m_skin.FolderIcon;
 		}
@@ -1771,26 +1790,23 @@ namespace SimpleFileBrowser
 						multiSelectionPivotFileEntry = Mathf.Clamp( multiSelectionPivotFileEntry, 0, validFileEntries.Count - 1 );
 
 						selectedFileEntries.Clear();
-						selectedFileEntries.Add( item.Position );
 
 						for( int i = multiSelectionPivotFileEntry; i < item.Position; i++ )
 							selectedFileEntries.Add( i );
 
 						for( int i = multiSelectionPivotFileEntry; i > item.Position; i-- )
 							selectedFileEntries.Add( i );
+
+						selectedFileEntries.Add( item.Position );
 					}
 					else
 #endif
 					{
 						multiSelectionPivotFileEntry = item.Position;
 
-						// When in toggle selection mode or Control key is held, individual items can be multi-selected
+						// When in toggle selection mode or Control/Command key is held, individual items can be multi-selected
 #if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEBGL || UNITY_WSA || UNITY_WSA_10_0
-#if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
-						if( m_multiSelectionToggleSelectionMode || ( Keyboard.current != null && Keyboard.current.ctrlKey.isPressed ) )
-#else
-						if( m_multiSelectionToggleSelectionMode || Input.GetKey( KeyCode.LeftControl ) || Input.GetKey( KeyCode.RightControl ) )
-#endif
+						if( m_multiSelectionToggleSelectionMode || IsCtrlKeyHeld() )
 #else
 						if( m_multiSelectionToggleSelectionMode )
 #endif
@@ -2164,7 +2180,7 @@ namespace SimpleFileBrowser
 				// Don't select folders in file picking mode if MultiSelectionToggleSelectionMode is enabled or about to be enabled
 				for( int i = 0; i < validFileEntries.Count; i++ )
 				{
-#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WSA || UNITY_WSA_10_0
+#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEBGL || UNITY_WSA || UNITY_WSA_10_0
 					if( !m_multiSelectionToggleSelectionMode || !validFileEntries[i].IsDirectory )
 #else
 					if( !validFileEntries[i].IsDirectory )
@@ -2472,7 +2488,7 @@ namespace SimpleFileBrowser
 				middleViewQuickLinks.sizeDelta = new Vector2( quickLinksWidth, middleViewQuickLinksOriginalSize.y );
 				middleViewFiles.anchoredPosition = new Vector2( quickLinksWidth, 0f );
 				middleViewFiles.sizeDelta = new Vector2( -quickLinksWidth, middleViewQuickLinksOriginalSize.y );
-				middleViewSeparator.anchoredPosition = new Vector2( quickLinksWidth, 0f );
+				middleViewSeparator.rectTransform.anchoredPosition = new Vector2( quickLinksWidth, 0f );
 			}
 
 #if !UNITY_EDITOR && UNITY_ANDROID
@@ -2483,13 +2499,10 @@ namespace SimpleFileBrowser
 
 			if( windowWidth >= narrowScreenWidth )
 			{
-				if( pathInputField.transform.parent == pathInputFieldSlotBottom )
+				if( topViewNarrowScreen.gameObject.activeSelf )
 				{
+					topViewNarrowScreen.gameObject.SetActive( false );
 					pathInputField.transform.SetParent( pathInputFieldSlotTop, false );
-
-					middleView.anchoredPosition = middleViewOriginalPosition;
-					middleView.sizeDelta = middleViewOriginalSize;
-
 					showHiddenFilesToggle.gameObject.SetActive( m_displayHiddenFilesToggle );
 
 					listView.OnViewportDimensionsChanged();
@@ -2498,13 +2511,10 @@ namespace SimpleFileBrowser
 			}
 			else
 			{
-				if( pathInputField.transform.parent == pathInputFieldSlotTop )
+				if( !topViewNarrowScreen.gameObject.activeSelf )
 				{
+					topViewNarrowScreen.gameObject.SetActive( true );
 					pathInputField.transform.SetParent( pathInputFieldSlotBottom, false );
-
-					float topViewAdditionalHeight = topViewNarrowScreen.sizeDelta.y;
-					middleView.anchoredPosition = middleViewOriginalPosition - new Vector2( 0f, topViewAdditionalHeight * 0.5f );
-					middleView.sizeDelta = middleViewOriginalSize - new Vector2( 0f, topViewAdditionalHeight );
 
 					// Responsive layout for narrow screens doesn't include "Show Hidden Files" toggle.
 					// We simply hide it because I think creating a new row for it would be an overkill
@@ -2725,23 +2735,23 @@ namespace SimpleFileBrowser
 			return !isWhitespace;
 		}
 
-		// Credit: http://answers.unity3d.com/questions/898770/how-to-get-the-width-of-ui-text-with-horizontal-ov.html
-		private int CalculateLengthOfDropdownText( string str )
+		private void RefreshFiltersDropdownWidth()
 		{
-			Font font = filterItemTemplate.font;
-			font.RequestCharactersInTexture( str, filterItemTemplate.fontSize, filterItemTemplate.fontStyle );
+			/// <see cref="filterItemTemplate"/> must be active in the scene to return correct preferredWidth values
+			filtersDropdownContainer.gameObject.SetActive( true );
 
-			int totalLength = 0;
-			for( int i = 0; i < str.Length; i++ )
+			float maxFilterStrLength = 0f;
+			for( int i = 0; i < filterLabels.Count; i++ )
 			{
-				CharacterInfo characterInfo;
-				if( !font.GetCharacterInfo( str[i], out characterInfo, filterItemTemplate.fontSize ) )
-					totalLength += 5;
-
-				totalLength += characterInfo.advance;
+				filterItemTemplate.text = filterLabels[i];
+				maxFilterStrLength = Mathf.Max( maxFilterStrLength, filterItemTemplate.preferredWidth );
 			}
 
-			return totalLength;
+			Vector2 size = filtersDropdownContainer.sizeDelta;
+			size.x = Mathf.Max( ( (RectTransform) filtersDropdown.transform ).sizeDelta.x, maxFilterStrLength + 35f );
+			filtersDropdownContainer.sizeDelta = size;
+
+			filtersDropdownContainer.gameObject.SetActive( false );
 		}
 
 		private string GetInitialPath( string initialPath )
@@ -2833,6 +2843,24 @@ namespace SimpleFileBrowser
 				}
 				catch { }
 			}
+		}
+
+		// Check if Control/Command key is held
+		private bool IsCtrlKeyHeld()
+		{
+#if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
+#if UNITY_EDITOR_OSX || ( !UNITY_EDITOR && UNITY_STANDALONE_OSX )
+			return Keyboard.current != null && ( Keyboard.current.leftCommandKey.isPressed || Keyboard.current.rightCommandKey.isPressed );
+#else
+			return Keyboard.current != null && Keyboard.current.ctrlKey.isPressed;
+#endif
+#else
+#if UNITY_EDITOR_OSX || ( !UNITY_EDITOR && UNITY_STANDALONE_OSX )
+			return Input.GetKey( KeyCode.LeftCommand ) || Input.GetKey( KeyCode.RightCommand );
+#else
+			return Input.GetKey( KeyCode.LeftControl ) || Input.GetKey( KeyCode.RightControl );
+#endif
+#endif
 		}
 		#endregion
 
@@ -3033,22 +3061,14 @@ namespace SimpleFileBrowser
 			if( filters.Count == 0 )
 				filters.Add( Instance.allFilesFilter );
 
-			int maxFilterStrLength = 100;
-			List<string> dropdownValues = new List<string>( filters.Count );
+			Instance.filterLabels.Clear();
 			for( int i = 0; i < filters.Count; i++ )
-			{
-				string filterStr = filters[i].ToString();
-				dropdownValues.Add( filterStr );
+				Instance.filterLabels.Add( filters[i].ToString() );
 
-				maxFilterStrLength = Mathf.Max( maxFilterStrLength, Instance.CalculateLengthOfDropdownText( filterStr ) );
-			}
-
-			Vector2 size = Instance.filtersDropdownContainer.sizeDelta;
-			size.x = maxFilterStrLength + 28;
-			Instance.filtersDropdownContainer.sizeDelta = size;
+			Instance.RefreshFiltersDropdownWidth();
 
 			Instance.filtersDropdown.ClearOptions();
-			Instance.filtersDropdown.AddOptions( dropdownValues );
+			Instance.filtersDropdown.AddOptions( Instance.filterLabels );
 			Instance.filtersDropdown.value = 0;
 
 			Instance.allFiltersHaveSingleSuffix = filters[0].allExtensionsHaveSingleSuffix;

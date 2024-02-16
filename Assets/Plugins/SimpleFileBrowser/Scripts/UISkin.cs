@@ -51,6 +51,22 @@ namespace SimpleFileBrowser
 			set { if( m_fontSize != value ) { m_fontSize = value; m_version++; } }
 		}
 
+		[SerializeField]
+		private float m_rowHeight = 30f;
+		public float RowHeight
+		{
+			get { return m_rowHeight; }
+			set { if( m_rowHeight != value ) { m_rowHeight = value; m_version++; } }
+		}
+
+		[SerializeField]
+		private float m_rowSpacing = 8f;
+		public float RowSpacing
+		{
+			get { return m_rowSpacing; }
+			set { if( m_rowSpacing != value ) { m_rowSpacing = value; m_version++; } }
+		}
+
 		[Header( "File Browser Window" )]
 		[SerializeField]
 		private Color m_windowColor = Color.grey;
@@ -575,8 +591,12 @@ namespace SimpleFileBrowser
 			ApplyTo( dropdown.captionText, m_dropdownTextColor );
 			ApplyTo( dropdown.itemText, m_dropdownTextColor );
 
-			Transform dropdownItem = dropdown.itemText.transform.parent;
+			RectTransform dropdownItem = (RectTransform) dropdown.itemText.transform.parent;
+			dropdownItem.sizeDelta = new Vector2( dropdownItem.sizeDelta.x, m_rowHeight );
 			dropdownItem.Find( "Item Background" ).GetComponent<Image>().color = m_dropdownColor;
+
+			RectTransform dropdownScrollContent = (RectTransform) dropdownItem.parent;
+			dropdownScrollContent.sizeDelta = new Vector2( dropdownScrollContent.sizeDelta.x, dropdownItem.sizeDelta.y + 2f );
 
 			Image dropdownCheckmark = dropdownItem.Find( "Item Checkmark" ).GetComponent<Image>();
 			dropdownCheckmark.color = m_dropdownCheckmarkColor;
