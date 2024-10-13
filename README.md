@@ -59,7 +59,7 @@ If you have questions about ViRe, got feature suggestions or bugs, or just want 
 
 ## Feature development
 
-Built on Unity 2022.3.4f1 LTS
+Built on Unity 2022.3.50f1 LTS
 
 | Feature                                       | Status        |
 | ----------------------------------------------|:-------------:|
