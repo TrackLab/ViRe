@@ -1,103 +1,107 @@
 {
-  "actions": [
-    {
-      "name": "/actions/default/in/InteractUI",
-      "type": "boolean"
-    },
-    {
-      "name": "/actions/default/in/HeadsetOnHead",
-      "type": "boolean",
-      "requirement": "optional"
-    },
-    {
-      "name": "/actions/default/in/Record",
-      "type": "boolean",
-      "requirement": "mandatory"
-    },
-    {
-      "name": "/actions/default/in/Scale",
-      "type": "boolean",
-      "requirement": "mandatory"
-    },
-    {
-      "name": "/actions/default/in/Pause",
-      "type": "boolean",
-      "requirement": "mandatory"
-    },
-    {
-      "name": "/actions/default/in/Pose",
-      "type": "pose"
-    },
-    {
-      "name": "/actions/default/out/Haptic",
-      "type": "vibration"
-    }
-  ],
-  "action_sets": [
-    {
-      "name": "/actions/default",
-      "usage": "single"
-    }
-  ],
-  "default_bindings": [
-    {
-      "controller_type": "vive_controller",
-      "binding_url": "bindings_vive_controller.json"
-    },
-    {
-      "controller_type": "oculus_touch",
-      "binding_url": "bindings_oculus_touch.json"
-    },
-    {
-      "controller_type": "knuckles",
-      "binding_url": "bindings_knuckles.json"
-    },
-    {
-      "controller_type": "holographic_controller",
-      "binding_url": "bindings_holographic_controller.json"
-    },
-    {
-      "controller_type": "vive_cosmos_controller",
-      "binding_url": "bindings_vive_cosmos_controller.json"
-    },
-    {
-      "controller_type": "vive_cosmos",
-      "binding_url": "binding_vive_cosmos.json"
-    },
-    {
-      "controller_type": "vive",
-      "binding_url": "binding_vive.json"
-    },
-    {
-      "controller_type": "indexhmd",
-      "binding_url": "binding_index_hmd.json"
-    },
-    {
-      "controller_type": "vive_pro",
-      "binding_url": "binding_vive_pro.json"
-    },
-    {
-      "controller_type": "rift",
-      "binding_url": "binding_rift.json"
-    },
-    {
-      "controller_type": "holographic_hmd",
-      "binding_url": "binding_holographic_hmd.json"
-    },
-    {
-      "controller_type": "vive_tracker_camera",
-      "binding_url": "binding_vive_tracker_camera.json"
-    }
-  ],
-  "localization": [
-    {
-      "language_tag": "en_US",
-      "/actions/default/in/HeadsetOnHead": "Headset on head (proximity sensor)",
-      "/actions/default/in/InteractUI": "Interact With UI",
-      "/actions/default/out/Haptic": "Haptic",
-      "/actions/default/in/Record": "Record",
-      "/actions/default/in/Scale": "Scale",
-      "/actions/default/in/Pause": "Pause"
-    }
-  ]
+   "action_sets" : [
+      {
+         "name" : "/actions/default",
+         "usage" : "single"
+      }
+   ],
+   "actions" : [
+      {
+         "name" : "/actions/default/in/InteractUI",
+         "type" : "boolean"
+      },
+      {
+         "name" : "/actions/default/in/HeadsetOnHead",
+         "requirement" : "optional",
+         "type" : "boolean"
+      },
+      {
+         "name" : "/actions/default/in/Record",
+         "requirement" : "mandatory",
+         "type" : "boolean"
+      },
+      {
+         "name" : "/actions/default/in/Scale",
+         "requirement" : "mandatory",
+         "type" : "boolean"
+      },
+      {
+         "name" : "/actions/default/in/Pause",
+         "requirement" : "mandatory",
+         "type" : "boolean"
+      },
+      {
+         "name" : "/actions/default/in/Pose",
+         "type" : "pose"
+      },
+      {
+         "name" : "/actions/default/out/Haptic",
+         "type" : "vibration"
+      }
+   ],
+   "default_bindings" : [
+      {
+         "binding_url" : "bindings_vive_controller.json",
+         "controller_type" : "vive_controller"
+      },
+      {
+         "binding_url" : "bindings_oculus_touch.json",
+         "controller_type" : "oculus_touch"
+      },
+      {
+         "binding_url" : "bindings_knuckles.json",
+         "controller_type" : "knuckles"
+      },
+      {
+         "binding_url" : "bindings_holographic_controller.json",
+         "controller_type" : "holographic_controller"
+      },
+      {
+         "binding_url" : "bindings_vive_cosmos_controller.json",
+         "controller_type" : "vive_cosmos_controller"
+      },
+      {
+         "binding_url" : "binding_vive_cosmos.json",
+         "controller_type" : "vive_cosmos"
+      },
+      {
+         "binding_url" : "binding_vive.json",
+         "controller_type" : "vive"
+      },
+      {
+         "binding_url" : "binding_index_hmd.json",
+         "controller_type" : "indexhmd"
+      },
+      {
+         "binding_url" : "binding_vive_pro.json",
+         "controller_type" : "vive_pro"
+      },
+      {
+         "binding_url" : "binding_rift.json",
+         "controller_type" : "rift"
+      },
+      {
+         "binding_url" : "binding_holographic_hmd.json",
+         "controller_type" : "holographic_hmd"
+      },
+      {
+         "binding_url" : "binding_vive_tracker_camera.json",
+         "controller_type" : "vive_tracker_camera"
+      },
+      {
+         "binding_url" : "application_generated_unity_vire_exe_binding_vive_tracker_right_ankle.json",
+         "controller_type" : "vive_tracker_right_ankle"
+      }
+   ],
+   "localization" : [
+      {
+         "/actions/default/in/HeadsetOnHead" : "Headset on head (proximity sensor)",
+         "/actions/default/in/InteractUI" : "Interact With UI",
+         "/actions/default/in/Pause" : "Pause",
+         "/actions/default/in/Record" : "Record",
+         "/actions/default/in/Scale" : "Scale",
+         "/actions/default/out/Haptic" : "Haptic",
+         "language_tag" : "en_US"
+      }
+   ]
 }
