@@ -23,6 +23,7 @@ public class UpperRigController : MonoBehaviour
     [SerializeField] private MapTransform head;
     [SerializeField] private MapTransform leftHand;
     [SerializeField] private MapTransform rightHand;
+    [SerializeField] private Transform chest;
 
     [SerializeField] private float turnSmoothness;
 
@@ -37,5 +38,6 @@ public class UpperRigController : MonoBehaviour
         head.MapVRAvatar();
         leftHand.MapVRAvatar();
         rightHand.MapVRAvatar();
+        chest.rotation = head.IKTarget.transform.rotation;
     }
 }
