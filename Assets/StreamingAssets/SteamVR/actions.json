@@ -5,37 +5,9 @@
       "type": "boolean"
     },
     {
-      "name": "/actions/default/in/Teleport",
-      "type": "boolean"
-    },
-    {
-      "name": "/actions/default/in/SkeletonLeftHand",
-      "type": "skeleton",
-      "skeleton": "/skeleton/hand/left"
-    },
-    {
-      "name": "/actions/default/in/SkeletonRightHand",
-      "type": "skeleton",
-      "skeleton": "/skeleton/hand/right"
-    },
-    {
-      "name": "/actions/default/in/Squeeze",
-      "type": "vector1",
-      "requirement": "optional"
-    },
-    {
       "name": "/actions/default/in/HeadsetOnHead",
       "type": "boolean",
       "requirement": "optional"
-    },
-    {
-      "name": "/actions/default/in/SnapTurnLeft",
-      "type": "boolean",
-      "requirement": "suggested"
-    },
-    {
-      "name": "/actions/default/in/SnapTurnRight",
-      "type": "boolean"
     },
     {
       "name": "/actions/default/in/Record",
@@ -122,12 +94,7 @@
       "language_tag": "en_US",
       "/actions/default/in/HeadsetOnHead": "Headset on head (proximity sensor)",
       "/actions/default/in/InteractUI": "Interact With UI",
-      "/actions/default/in/SkeletonLeftHand": "Skeleton (Left)",
-      "/actions/default/in/SkeletonRightHand": "Skeleton (Right)",
-      "/actions/default/in/Teleport": "Teleport",
       "/actions/default/out/Haptic": "Haptic",
-      "/actions/default/in/SnapTurnLeft": "Snap Turn (Left)",
-      "/actions/default/in/SnapTurnRight": "Snap Turn (Right)",
       "/actions/default/in/Record": "Record",
       "/actions/default/in/Scale": "Scale",
       "/actions/default/in/Pause": "Pause"

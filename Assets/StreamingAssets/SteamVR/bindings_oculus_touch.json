@@ -112,16 +112,7 @@
           }
         }
       ],
-      "skeleton": [
-        {
-          "output": "/actions/default/in/skeletonlefthand",
-          "path": "/user/hand/left/input/skeleton/left"
-        },
-        {
-          "output": "/actions/default/in/skeletonrighthand",
-          "path": "/user/hand/right/input/skeleton/right"
-        }
-      ]
+      "skeleton": []
     },
     "/actions/platformer": {
       "chords": [],
