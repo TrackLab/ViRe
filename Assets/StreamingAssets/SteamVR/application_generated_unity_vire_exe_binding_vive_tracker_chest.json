@@ -38,10 +38,6 @@
             {
                "output" : "/actions/default/in/pose",
                "path" : "/user/waist/pose/raw"
-            },
-            {
-               "output" : "/actions/default/in/pose",
-               "path" : "/user/ankle/right/pose/raw"
             }
          ],
          "skeleton" : [],
@@ -129,7 +125,7 @@
       }
    },
    "category" : "steamvr_input",
-   "controller_type" : "vive_tracker_right_ankle",
+   "controller_type" : "vive_tracker_chest",
    "description" : "",
    "interaction_profile" : "",
    "name" : "vive_tracker",

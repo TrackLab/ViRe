@@ -8,6 +8,7 @@
    "actions" : [
       {
          "name" : "/actions/default/in/InteractUI",
+         "requirement" : "mandatory",
          "type" : "boolean"
       },
       {
@@ -32,6 +33,7 @@
       },
       {
          "name" : "/actions/default/in/Pose",
+         "requirement" : "mandatory",
          "type" : "pose"
       },
       {
@@ -89,8 +91,60 @@
          "controller_type" : "vive_tracker_camera"
       },
       {
+         "binding_url" : "application_generated_unity_vire_exe_binding_vive_tracker_waist.json",
+         "controller_type" : "vive_tracker_waist"
+      },
+      {
+         "binding_url" : "application_generated_unity_vire_exe_binding_vive_tracker_chest.json",
+         "controller_type" : "vive_tracker_chest"
+      },
+      {
          "binding_url" : "application_generated_unity_vire_exe_binding_vive_tracker_right_ankle.json",
          "controller_type" : "vive_tracker_right_ankle"
+      },
+      {
+         "binding_url" : "application_generated_unity_vire_exe_binding_vive_tracker_left_ankle.json",
+         "controller_type" : "vive_tracker_left_ankle"
+      },
+      {
+         "binding_url" : "application_generated_unity_vire_exe_binding_vive_tracker_right_wrist.json",
+         "controller_type" : "vive_tracker_right_wrist"
+      },
+      {
+         "binding_url" : "application_generated_unity_vire_exe_binding_vive_tracker_left_wrist.json",
+         "controller_type" : "vive_tracker_left_wrist"
+      },
+      {
+         "binding_url" : "application_generated_unity_vire_exe_binding_vive_tracker_right_knee.json",
+         "controller_type" : "vive_tracker_right_knee"
+      },
+      {
+         "binding_url" : "application_generated_unity_vire_exe_binding_vive_tracker_left_knee.json",
+         "controller_type" : "vive_tracker_left_knee"
+      },
+      {
+         "binding_url" : "application_generated_unity_vire_exe_binding_vive_tracker_right_elbow.json",
+         "controller_type" : "vive_tracker_right_elbow"
+      },
+      {
+         "binding_url" : "application_generated_unity_vire_exe_binding_vive_tracker_left_elbow.json",
+         "controller_type" : "vive_tracker_left_elbow"
+      },
+      {
+         "binding_url" : "application_generated_unity_vire_exe_binding_vive_tracker_right_foot.json",
+         "controller_type" : "vive_tracker_right_foot"
+      },
+      {
+         "binding_url" : "application_generated_unity_vire_exe_binding_vive_tracker_left_foot.json",
+         "controller_type" : "vive_tracker_left_foot"
+      },
+      {
+         "binding_url" : "application_generated_unity_vire_exe_binding_vive_tracker_left_shoulder.json",
+         "controller_type" : "vive_tracker_left_shoulder"
+      },
+      {
+         "binding_url" : "application_generated_unity_vire_exe_binding_vive_tracker_right_shoulder.json",
+         "controller_type" : "vive_tracker_right_shoulder"
       }
    ],
    "localization" : [

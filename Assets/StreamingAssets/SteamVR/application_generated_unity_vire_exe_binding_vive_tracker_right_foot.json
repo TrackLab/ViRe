@@ -42,6 +42,38 @@
             {
                "output" : "/actions/default/in/pose",
                "path" : "/user/ankle/right/pose/raw"
+            },
+            {
+               "output" : "/actions/default/in/pose",
+               "path" : "/user/ankle/left/pose/raw"
+            },
+            {
+               "output" : "/actions/default/in/pose",
+               "path" : "/user/wrist/right/pose/raw"
+            },
+            {
+               "output" : "/actions/default/in/pose",
+               "path" : "/user/wrist/left/pose/raw"
+            },
+            {
+               "output" : "/actions/default/in/pose",
+               "path" : "/user/knee/right/pose/raw"
+            },
+            {
+               "output" : "/actions/default/in/pose",
+               "path" : "/user/knee/left/pose/raw"
+            },
+            {
+               "output" : "/actions/default/in/pose",
+               "path" : "/user/elbow/right/pose/raw"
+            },
+            {
+               "output" : "/actions/default/in/pose",
+               "path" : "/user/elbow/left/pose/raw"
+            },
+            {
+               "output" : "/actions/default/in/pose",
+               "path" : "/user/foot/right/pose/raw"
             }
          ],
          "skeleton" : [],
@@ -129,7 +161,7 @@
       }
    },
    "category" : "steamvr_input",
-   "controller_type" : "vive_tracker_right_ankle",
+   "controller_type" : "vive_tracker_right_foot",
    "description" : "",
    "interaction_profile" : "",
    "name" : "vive_tracker",
