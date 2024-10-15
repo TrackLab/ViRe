@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Valve.VR;
 
 // Pulled from https://learn.unity.com/project/prototyping-a-procedural-animated-boss
 
@@ -16,6 +17,11 @@ public class IKFootSolver : MonoBehaviour
     Vector3 oldPosition, currentPosition, newPosition;
     Vector3 oldNormal, currentNormal, newNormal;
     float lerp;
+
+    public void HandleActivation(SteamVR_Behaviour_Pose _, SteamVR_Input_Sources __, bool deviceConnected)
+    {
+        enabled = !deviceConnected;
+    }
 
     private void Start()
     {
@@ -36,7 +42,7 @@ public class IKFootSolver : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit info, 10, terrainLayer.value))
         {
-            
+
             if (Vector3.Distance(newPosition, info.point) > stepDistance && !otherFoot.IsMoving() && lerp >= 1)
             {
                 lerp = 0;
