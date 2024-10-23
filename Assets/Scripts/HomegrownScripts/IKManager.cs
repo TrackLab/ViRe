@@ -20,10 +20,9 @@ public class IKManager : MonoBehaviour
 
     private void ConfigureIK()
     {
-        // Turn everything off to (maybe) reset the positions
-        gameObject.SetActive(false);
         rootOverride.SetActive(false);
-        rigBuilder.Build();
+        // midOverride.SetActive(false);
+        // tipOverride.SetActive(false);
 
         if (rootPoseNode.isValid)
         {
@@ -39,8 +38,6 @@ public class IKManager : MonoBehaviour
         {
             tipOverride.SetActive(true);
         }
-
-        gameObject.SetActive(true);
 
         rigBuilder.Build();
     }
