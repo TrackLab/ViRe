@@ -92,13 +92,15 @@ public class IKOverrideManager : MonoBehaviour
         rigBuilder.Build();
     }
 
-    public void TriggerCalibration()
+    public void TriggerCalibration(SteamVR_Action_Boolean action, SteamVR_Input_Sources source)
     {
         ConfigureIK(true);
     }
 
     void Start()
     {
+        SteamVR_Actions._default.Scale.onStateDown += TriggerCalibration;
+
         localIK = GetComponent<TwoBoneIKConstraint>();
 
         rootPoseNode = rootPoseTracker.GetComponent<SteamVR_Behaviour_Pose>();
