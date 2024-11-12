@@ -1,7 +1,14 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Animations.Rigging;
 using Valve.VR;
+
+enum OverrideTarget
+{
+    Tracker,
+    Fallback
+}
 
 public class IKOverrideManager : MonoBehaviour
 {
@@ -9,59 +16,80 @@ public class IKOverrideManager : MonoBehaviour
 
     [SerializeField] RigBuilder rigBuilder;
 
+    [SerializeField] bool overrideTip = false;
+
     private SteamVR_Behaviour_Pose rootPoseNode, midPoseNode, tipPoseNode;
     private TwoBoneIKConstraint localIK;
     private ParentConstraint rootOverrideScript, midOverrideScript, tipOverrideScript;
+    private Transform rootBoneTransform, midBoneTransform, tipBoneTransform;
 
-    private void ConfigureIK(bool calibrateOverride = false)
+    private void SwapTargets(ParentConstraint overrideScript, OverrideTarget overrideTarget)
     {
-        localIK.weight = 1;
-
-        rootOverrideScript.constraintActive = midOverrideScript.constraintActive = tipOverrideScript.constraintActive = false;
-
-        if (rootPoseNode.isValid || midPoseNode.isValid)
+        ConstraintSource[] sources = new ConstraintSource[2];
+        sources[(int)OverrideTarget.Tracker] = overrideScript.GetSource((int)OverrideTarget.Tracker);
+        sources[(int)OverrideTarget.Fallback] = overrideScript.GetSource((int)OverrideTarget.Fallback);
+        switch (overrideTarget)
         {
-            localIK.weight = 0;
-            tipOverrideScript.constraintActive = true;
+            case OverrideTarget.Tracker:
+                sources[(int)OverrideTarget.Tracker].weight = 1;
+                sources[(int)OverrideTarget.Fallback].weight = 0;
+                break;
+            case OverrideTarget.Fallback:
+                sources[(int)OverrideTarget.Fallback].weight = 1;
+                sources[(int)OverrideTarget.Tracker].weight = 0;
+                break;
         }
-        // if (rootPoseNode.isValid || midPoseNode.isValid || tipPoseNode.isActive) localIK.weight = 0;
+        overrideScript.SetSources(new List<ConstraintSource>(sources));
+        overrideScript.constraintActive = true;
+    }
 
-        if (rootPoseNode.isValid)
-        {
-            rootOverrideScript.constraintActive = true;
-            if (calibrateOverride)
-            {
-                // TODO: Can this be done cleaner?
-                rootOverrideScript.rotationOffsets[0] = new Vector3(0 - rootPoseNode.transform.rotation.eulerAngles.x, 0 - rootPoseNode.transform.rotation.eulerAngles.y, 0 - rootPoseNode.transform.rotation.eulerAngles.z);
-            }
-        }
-
-        if (midPoseNode.isValid)
-        {
-            midOverrideScript.constraintActive = true;
-            if (calibrateOverride)
-            {
-                // TODO: Can this be done cleaner?
-                midOverrideScript.rotationOffsets[0] = new Vector3(0 - midPoseNode.transform.rotation.eulerAngles.x, 0 - midPoseNode.transform.rotation.eulerAngles.y, 0 - midPoseNode.transform.rotation.eulerAngles.z);
-            }
-        }
-
-        // if (tipPoseNode.isValid)
+    private void EnableAndCalibrate(ParentConstraint overrideScript, SteamVR_Behaviour_Pose poseNode, bool calibrateOverride)
+    {
+        SwapTargets(overrideScript, OverrideTarget.Tracker);
+        // TODO: This might be need removing because spinning the tracker around its axis fixes stuff?
+        // if (calibrateOverride)
         // {
-        //     tipOverrideScript.enabled = true;
-        //     if (calibrateOverride)
-        //     {
-        //         // TODO: Can this be done cleaner?
-        //         tipOverrideScript.rotateOffsetVector = new Vector3(0 - tipPoseNode.transform.rotation.eulerAngles.x, 0 - tipPoseNode.transform.rotation.eulerAngles.y, 0 - tipPoseNode.transform.rotation.eulerAngles.z);
-        //     }
+        //     Debug.Log(Vector3.zero - poseNode.transform.rotation.eulerAngles);
+        //     overrideScript.SetRotationOffset((int)OverrideTarget.Tracker, Vector3.zero - poseNode.transform.rotation.eulerAngles);
         // }
+        overrideScript.constraintActive = true;
+    }
 
+
+    private void ModelReset()
+    {
+        rootBoneTransform.localPosition = rootOverrideScript.translationAtRest;
+        midBoneTransform.localPosition = midOverrideScript.translationAtRest;
+        tipBoneTransform.localPosition = tipOverrideScript.translationAtRest;
+        rootBoneTransform.localRotation = midBoneTransform.localRotation = tipBoneTransform.localRotation = Quaternion.Euler(0, 0, 0);
         rigBuilder.Build();
     }
 
-    public void HandleNewController(SteamVR_Behaviour_Pose _, SteamVR_Input_Sources __, bool ___)
+    private void ConfigureIK(bool calibrateOverride = false)
     {
-        ConfigureIK();
+        if (!rootPoseNode.isValid && !midPoseNode.isValid && !overrideTip)
+        {
+            rootOverrideScript.constraintActive = midOverrideScript.constraintActive = tipOverrideScript.constraintActive = false;
+            ModelReset();
+            localIK.weight = 1;
+            return;
+        }
+
+        if (rootPoseNode.isValid || midPoseNode.isValid || overrideTip)
+        {
+            localIK.weight = 0;
+            ModelReset();
+            if (!overrideTip) tipOverrideScript.constraintActive = true;
+        }
+
+        if (rootPoseNode.isValid) EnableAndCalibrate(rootOverrideScript, rootPoseNode, calibrateOverride);
+        else SwapTargets(rootOverrideScript, OverrideTarget.Fallback);
+        if (midPoseNode.isValid) EnableAndCalibrate(midOverrideScript, midPoseNode, calibrateOverride);
+        else SwapTargets(midOverrideScript, OverrideTarget.Fallback);
+        if (overrideTip && tipPoseNode.isValid) EnableAndCalibrate(tipOverrideScript, tipPoseNode, calibrateOverride);
+        else if (overrideTip) SwapTargets(tipOverrideScript, OverrideTarget.Fallback);
+
+        rigBuilder.Build();
     }
 
     public void TriggerCalibration()
@@ -75,11 +103,14 @@ public class IKOverrideManager : MonoBehaviour
 
         rootPoseNode = rootPoseTracker.GetComponent<SteamVR_Behaviour_Pose>();
         midPoseNode = midPoseTracker.GetComponent<SteamVR_Behaviour_Pose>();
+        if (overrideTip) tipPoseNode = tipPoseTracker.GetComponent<SteamVR_Behaviour_Pose>();
 
         rootOverrideScript = rootBone.GetComponent<ParentConstraint>();
         midOverrideScript = midBone.GetComponent<ParentConstraint>();
         tipOverrideScript = tipBone.GetComponent<ParentConstraint>();
 
-        ConfigureIK();
+        rootBoneTransform = rootBone.transform;
+        midBoneTransform = midBone.transform;
+        tipBoneTransform = tipBone.transform;
     }
 }
