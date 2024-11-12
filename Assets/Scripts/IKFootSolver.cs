@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using Valve.VR;
 
 // Pulled from https://learn.unity.com/project/prototyping-a-procedural-animated-boss
 
@@ -17,11 +16,6 @@ public class IKFootSolver : MonoBehaviour
     Vector3 oldPosition, currentPosition, newPosition;
     Vector3 oldNormal, currentNormal, newNormal;
     float lerp;
-
-    public void HandleActivation(SteamVR_Behaviour_Pose _, SteamVR_Input_Sources __, bool deviceConnected)
-    {
-        enabled = !deviceConnected;
-    }
 
     private void Start()
     {
@@ -68,12 +62,12 @@ public class IKFootSolver : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
-    {
+    // private void OnDrawGizmos()
+    // {
 
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(newPosition, 0.5f);
-    }
+    //     Gizmos.color = Color.red;
+    //     Gizmos.DrawSphere(newPosition, 0.5f);
+    // }
 
 
 

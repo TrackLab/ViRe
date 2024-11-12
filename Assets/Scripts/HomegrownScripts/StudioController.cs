@@ -8,7 +8,7 @@ public class StudioController : MonoBehaviour
     private BVHRecorder recorder;
     private IKFootSolver leftLeg, rightLeg;
     public GameObject pauseScreen;
-    
+
 
     void Start()
     {
@@ -19,12 +19,12 @@ public class StudioController : MonoBehaviour
         GameObject light = GameObject.Find("AirText");
         feedlight = light.GetComponent<FeedbackColor>();
         recorder = GetComponent<BVHRecorder>();
-        leftLeg = GameObject.Find("LeftAnkleController").GetComponent<IKFootSolver>();
-        rightLeg = GameObject.Find("RightAnkleController").GetComponent<IKFootSolver>();
+        leftLeg = GameObject.Find("LeftFootController").GetComponent<IKFootSolver>();
+        rightLeg = GameObject.Find("RightFootController").GetComponent<IKFootSolver>();
 
-        string docPath = System.Environment.GetEnvironmentVariable("USERPROFILE")+"/Documents";
+        string docPath = System.Environment.GetEnvironmentVariable("USERPROFILE") + "/Documents";
         string recPath = PlayerPrefs.GetString("RecPath", docPath);
-        if (!Directory.Exists(recPath)){recPath = docPath;}
+        if (!Directory.Exists(recPath)) { recPath = docPath; }
         recorder.directory = recPath;
         recorder.frameRate = PlayerPrefs.GetInt("RecFPS", 60);
 
@@ -37,22 +37,24 @@ public class StudioController : MonoBehaviour
     }
 
     //These intermediary methods need to exist for proper delegate matching
-    private void vrOnPause(SteamVR_Action_Boolean action, SteamVR_Input_Sources source){pause();}
-    private void vrOnRecord(SteamVR_Action_Boolean action, SteamVR_Input_Sources source){toggleRecording();}
+    private void vrOnPause(SteamVR_Action_Boolean action, SteamVR_Input_Sources source) { pause(); }
+    private void vrOnRecord(SteamVR_Action_Boolean action, SteamVR_Input_Sources source) { toggleRecording(); }
 
-    public void pause(){pauseScreen.SetActive(!pauseScreen.activeInHierarchy);}
-    
+    public void pause() { pauseScreen.SetActive(!pauseScreen.activeInHierarchy); }
+
     public void toggleRecording()
     {
-        if (recorder.capturing){
-            recorder.capturing=false;
+        if (recorder.capturing)
+        {
+            recorder.capturing = false;
             recorder.saveBVH();
             recorder.clearCapture();
             feedlight.OffAir();
             Debug.Log("Recorder OFF & data saved");
         }
-        else {
-            recorder.capturing=true;
+        else
+        {
+            recorder.capturing = true;
             feedlight.OnAir();
             Debug.Log("Recorder ON");
         }
