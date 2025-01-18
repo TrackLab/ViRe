@@ -7,3 +7,10 @@ MonoImporter:
   icon: {instanceID: 0}
   userData: 
   assetBundleName: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 32647
+  packageName: SteamVR Plugin
+  packageVersion: 2.8.0 (sdk 2.0.10)
+  assetPath: Assets/SteamVR/Editor/SteamVR_Editor.cs
+  uploadId: 638640

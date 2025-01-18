@@ -3,3 +3,10 @@ guid: 712cd3a70a5a1da41a6594aac6a97abe
 NativeFormatImporter:
   userData: 
   assetBundleName: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 32647
+  packageName: SteamVR Plugin
+  packageVersion: 2.8.0 (sdk 2.0.10)
+  assetPath: Assets/SteamVR/Materials/workshop.mat
+  uploadId: 638640

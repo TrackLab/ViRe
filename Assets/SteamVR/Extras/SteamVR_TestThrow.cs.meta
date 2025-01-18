@@ -10,3 +10,10 @@ MonoImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 32647
+  packageName: SteamVR Plugin
+  packageVersion: 
+  assetPath: Assets/SteamVR/Extras/SteamVR_TestThrow.cs
+  uploadId: 0

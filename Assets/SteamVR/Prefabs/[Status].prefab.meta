@@ -3,3 +3,10 @@ guid: 255333d57084e4e46b3d948279746a47
 NativeFormatImporter:
   userData: 
   assetBundleName: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 32647
+  packageName: SteamVR Plugin
+  packageVersion: 2.8.0 (sdk 2.0.10)
+  assetPath: Assets/SteamVR/Prefabs/[Status].prefab
+  uploadId: 638640
