@@ -1215,7 +1215,7 @@ namespace Valve.VR.InteractionSystem
                         {
                             if (attachedInfo.HasAttachFlag(AttachmentFlags.VelocityMovement))
                             {
-                                attachedInfo.attachedRigidbody.velocity = Vector3.zero;
+                                attachedInfo.attachedRigidbody.linearVelocity = Vector3.zero;
                                 attachedInfo.attachedRigidbody.angularVelocity = Vector3.zero;
                             }
                             t = attachedInfo.interactable.snapAttachEaseInCurve.Evaluate(t);
@@ -1247,7 +1247,7 @@ namespace Valve.VR.InteractionSystem
                 float maxAngularVelocityChange = MaxAngularVelocityChange * scale;
                 float maxVelocityChange = MaxVelocityChange * scale;
 
-                attachedObjectInfo.attachedRigidbody.velocity = Vector3.MoveTowards(attachedObjectInfo.attachedRigidbody.velocity, velocityTarget, maxVelocityChange);
+                attachedObjectInfo.attachedRigidbody.linearVelocity = Vector3.MoveTowards(attachedObjectInfo.attachedRigidbody.linearVelocity, velocityTarget, maxVelocityChange);
                 attachedObjectInfo.attachedRigidbody.angularVelocity = Vector3.MoveTowards(attachedObjectInfo.attachedRigidbody.angularVelocity, angularTarget, maxAngularVelocityChange);
             }
         }

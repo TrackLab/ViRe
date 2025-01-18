@@ -71,8 +71,8 @@ namespace Valve.VR.InteractionSystem
 
         }
 
-        private static PhysicMaterial physicMaterial_lowfriction;
-        private static PhysicMaterial physicMaterial_highfriction;
+        private static PhysicsMaterial physicMaterial_lowfriction;
+        private static PhysicsMaterial physicMaterial_highfriction;
 
         private void Awake()
         {
@@ -86,22 +86,22 @@ namespace Valve.VR.InteractionSystem
 
             if (physicMaterial_lowfriction == null)
             {
-                physicMaterial_lowfriction = new PhysicMaterial("hand_lowFriction");
+                physicMaterial_lowfriction = new PhysicsMaterial("hand_lowFriction");
                 physicMaterial_lowfriction.dynamicFriction = 0;
                 physicMaterial_lowfriction.staticFriction = 0;
                 physicMaterial_lowfriction.bounciness = 0;
-                physicMaterial_lowfriction.bounceCombine = PhysicMaterialCombine.Minimum;
-                physicMaterial_lowfriction.frictionCombine = PhysicMaterialCombine.Minimum;
+                physicMaterial_lowfriction.bounceCombine = PhysicsMaterialCombine.Minimum;
+                physicMaterial_lowfriction.frictionCombine = PhysicsMaterialCombine.Minimum;
             }
 
             if (physicMaterial_highfriction == null)
             {
-                physicMaterial_highfriction = new PhysicMaterial("hand_highFriction");
+                physicMaterial_highfriction = new PhysicsMaterial("hand_highFriction");
                 physicMaterial_highfriction.dynamicFriction = 1f;
                 physicMaterial_highfriction.staticFriction = 1f;
                 physicMaterial_highfriction.bounciness = 0;
-                physicMaterial_highfriction.bounceCombine = PhysicMaterialCombine.Minimum;
-                physicMaterial_highfriction.frictionCombine = PhysicMaterialCombine.Average;
+                physicMaterial_highfriction.bounceCombine = PhysicsMaterialCombine.Minimum;
+                physicMaterial_highfriction.frictionCombine = PhysicsMaterialCombine.Average;
             }
 
             SetPhysicMaterial(physicMaterial_lowfriction);
@@ -109,7 +109,7 @@ namespace Valve.VR.InteractionSystem
             scale = SteamVR_Utils.GetLossyScale(hand.transform);
         }
 
-        void SetPhysicMaterial(PhysicMaterial mat)
+        void SetPhysicMaterial(PhysicsMaterial mat)
         {
             if (colliders == null) colliders = GetComponentsInChildren<Collider>();
             for (int i = 0; i < colliders.Length; i++)
@@ -179,7 +179,7 @@ namespace Valve.VR.InteractionSystem
             if (collidersInRadius == false)
             {
                 //keep updating velocity, just in case. Otherwise you get jitter
-                rigidbody.velocity = Vector3.zero;
+                rigidbody.linearVelocity = Vector3.zero;
                 rigidbody.angularVelocity = Vector3.zero;
                 /*
                 rigidbody.velocity = (targetPosition - rigidbody.position) / Time.fixedDeltaTime;
@@ -200,7 +200,7 @@ namespace Valve.VR.InteractionSystem
                     float maxAngularVelocityChange = MaxAngularVelocityChange * scale;
                     float maxVelocityChange = MaxVelocityChange * scale;
 
-                    rigidbody.velocity = Vector3.MoveTowards(rigidbody.velocity, velocityTarget, maxVelocityChange);
+                    rigidbody.linearVelocity = Vector3.MoveTowards(rigidbody.linearVelocity, velocityTarget, maxVelocityChange);
                     rigidbody.angularVelocity = Vector3.MoveTowards(rigidbody.angularVelocity, angularTarget, maxAngularVelocityChange);
                 }
             }
