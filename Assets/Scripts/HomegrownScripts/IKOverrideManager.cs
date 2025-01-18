@@ -12,7 +12,7 @@ enum OverrideTarget
 
 public class IKOverrideManager : MonoBehaviour
 {
-    [SerializeField] GameObject rootPoseTracker, midPoseTracker, tipPoseTracker, rootBone, midBone, tipBone;
+    [SerializeField] GameObject rootPoseTracker, midPoseTracker, tipPoseTracker, rootBone, midBone, tipBone, fbtHelpPopup;
 
     [SerializeField] RigBuilder rigBuilder;
 
@@ -80,6 +80,7 @@ public class IKOverrideManager : MonoBehaviour
 
         if ((rootPoseNode && rootPoseNode.isValid) || (midPoseNode && midPoseNode.isValid) || (tipPoseNode && tipPoseNode.isValid))
         {
+            fbtHelpPopup.SetActive(true);
             if (scriptToToggle) scriptToToggle.enabled = false;
             localIK.weight = 0;
             ModelReset();
