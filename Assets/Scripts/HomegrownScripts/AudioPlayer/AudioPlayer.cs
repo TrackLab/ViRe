@@ -5,65 +5,53 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.RegularExpressions;
 using SimpleFileBrowser;
 
 public class AudioPlayer : MonoBehaviour
 {
     public GameObject playlistGUI;
     public Transform playlistGUIcontent;
-    private AudioSource audioSource;
-    private TMPro.TextMeshProUGUI timestamp, filename;
-    private Image playToggleImage;
+    public AudioSource audioSource;
+    public TMPro.TextMeshProUGUI timestamp, filename;
+    public Image playToggleImage;
     public Sprite playButton, pauseButton;
-    private List<AudioClip> playlist;
-    private List<string> filenames;
-    private Regex buttonMatch = new("[0-9]+");
-    private int currentTrack;
+    private AudioClip currentFile;
+    private readonly List<string> filePaths = new();
+    private readonly List<GameObject> playlistGUIelements = new();
+    private int currentTrackIdx;
     private bool userPause = false;
     private bool switchingTrack = false;
+    private bool clearedList = false;
 
-    void Start()
+    private int GetNullableListCount<T>(List<T> list)
     {
-        audioSource = GameObject.Find("AudioPlayerSource").GetComponent<AudioSource>();
-        timestamp = GameObject.Find("Timestamp").GetComponent<TMPro.TextMeshProUGUI>();
-        filename = GameObject.Find("Filename").GetComponent<TMPro.TextMeshProUGUI>();
-        playToggleImage = GameObject.Find("Play").GetComponent<Image>();
-
-        playlist = new List<AudioClip>();
-        filenames = new List<string>();
-
-        InvokeRepeating(nameof(updateData), 0, 0.5f);
+        int validCount = 0;
+        for (int i = 0; i < list.Count; i++)
+        {
+            if (list[i] != null) validCount++;
+        }
+        return validCount;
     }
 
     //Runs every 0.5 seconds to update time and check if it's time to play next track. Runs slower than 1/frame to avoid race conditions when calling functions
-    private void updateData()
+    private void UpdateData()
     {
+        if (!userPause && !audioSource.isPlaying)
+        {
+            StartCoroutine(QueueNextTrack());
+            return;
+        }
         if (audioSource.clip == null) return;
         int currentTime = (int)Math.Round(audioSource.time);
         int currentMinutes = currentTime / 60;
-        int currentSeconds = (currentTime % 60);
+        int currentSeconds = currentTime % 60;
         timestamp.text = currentMinutes + ":" + currentSeconds;
-
-        if (!userPause && !audioSource.isPlaying) { playNextTrack(); }
     }
 
-    private void playNextTrack()
+    private void PlayNextTrack()
     {
-        if (playlist.Count == 0) { return; }
-        if (switchingTrack) { return; }
-        if (currentTrack + 1 >= playlist.Count)
-        {
-            endPlaylist();
-            return;
-        }
-
-        switchingTrack = true;
-        currentTrack++;
-        if (playlist[currentTrack] == null) { currentTrack++; }
-
-        filename.text = filenames[currentTrack];
-        audioSource.clip = playlist[currentTrack];
+        filename.text = Path.GetFileNameWithoutExtension(filePaths[currentTrackIdx]);
+        audioSource.clip = currentFile;
         audioSource.time = 0;
 
         togglePlayback();
@@ -71,10 +59,10 @@ public class AudioPlayer : MonoBehaviour
     }
 
     //Loop at the end of the playlist and pauses
-    private void endPlaylist()
+    private void EndPlaylist()
     {
-        currentTrack = -1;
-        playNextTrack();
+        switchingTrack = false;
+        currentTrackIdx = -1;
         userPause = true;
         audioSource.Stop();
         playToggleImage.sprite = playButton;
@@ -82,7 +70,7 @@ public class AudioPlayer : MonoBehaviour
 
     public void togglePlayback()
     {
-        if (playlist.Count == 0) { return; }
+        if (GetNullableListCount(filePaths) == 0) return;
         if (audioSource.isPlaying)
         {
             userPause = true;
@@ -97,34 +85,30 @@ public class AudioPlayer : MonoBehaviour
         }
     }
 
-    //Scrubs the playback forwards or backwards by X seconds
     public void scrubPlayhead(bool rewind)
     {
-        if (playlist.Count == 0) { return; }
+        if (GetNullableListCount(filePaths) == 0) return;
         if (rewind)
         {
-            if (audioSource.time - 5 < 0) { return; }
+            if (audioSource.time - 5 < 0) return;
             audioSource.time -= 5;
         }
         else
         {
-            if (audioSource.time + 5 > playlist[currentTrack].length) { return; }
+            if (audioSource.time + 5 > currentFile.length) return;
             audioSource.time += 5;
         }
     }
 
-    //This bunch of coroutines cause lag, plain and simple.
-    //Since all of these methods manipulate stuff with the Unity API, I couldn't send them into other threads
-    //Sorry about the solid 2 or more seconds of a freeze that you'll experience, but you can blame Unity's lack of good multithreading for it (definitely not my skills)
-
     public void browseAudio()
     {
+        CancelInvoke();
         filename.text = "Check PC";
-        StartCoroutine(runAudioBrowser());
+        StartCoroutine(RunAudioBrowser());
     }
 
     //Runs the file browser and calls to populate arrays and playlist GUI
-    IEnumerator runAudioBrowser()
+    private IEnumerator RunAudioBrowser()
     {
         FileBrowser.SetFilters(false, new FileBrowser.Filter("Audio", ".mp3", ".wav"));
         yield return FileBrowser.WaitForLoadDialog(FileBrowser.PickMode.Files, true, null, null, "Select audio for playlist", "Select");
@@ -133,36 +117,51 @@ public class AudioPlayer : MonoBehaviour
         {
             for (int i = 0; i < FileBrowser.Result.Length; i++)
             {
-                yield return addAudioClipInstance(FileBrowser.Result[i], i);
-                filenames.Add(Path.GetFileNameWithoutExtension(FileBrowser.Result[i]));
+                filePaths.Add(FileBrowser.Result[i]);
             }
 
-            generatePlaylistGUI();
-            currentTrack = -1;
-            playNextTrack();
+            InvokeRepeating(nameof(UpdateData), 0, 0.5f);
+            StartCoroutine(GeneratePlaylistGUI());
+            currentTrackIdx = -1;
+            yield return null;
         }
     }
 
-    //Populates the playlist management GUI
-    private void generatePlaylistGUI()
+    private IEnumerator GeneratePlaylistGUI()
     {
-        Transform track0 = playlistGUIcontent.GetChild(0);
-        track0.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = filenames[0];
-        for (int i = 0; i < filenames.Count - 1; i++)
+        GameObject track0 = playlistGUIcontent.GetChild(0).gameObject;
+        playlistGUIelements.Add(track0);
+        track0.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = Path.GetFileNameWithoutExtension(filePaths[0]);
+        for (int i = 1; i < GetNullableListCount(filePaths); i++)
         {
-            GameObject nextTrack = GameObject.Instantiate(playlistGUIcontent.GetChild(0).gameObject, playlistGUIcontent);
-            nextTrack.name = "Track" + (i + 1);
-            nextTrack.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = filenames[i + 1];
-            nextTrack.transform.GetChild(0).name = "Title" + (i + 1);
-            nextTrack.transform.GetChild(1).name = "Delete" + (i + 1);
+            GameObject nextTrack = Instantiate(track0, playlistGUIcontent);
+            nextTrack.name = $"Track_{i}";
+            nextTrack.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = Path.GetFileNameWithoutExtension(filePaths[i]);
+            nextTrack.transform.GetChild(0).name = $"Title_{i}";
+            nextTrack.transform.GetChild(1).name = $"Delete_{i}";
+            playlistGUIelements.Add(nextTrack);
+            yield return null;
         }
     }
 
-    //Gets AudioClip instances of the selected files
-    IEnumerator addAudioClipInstance(string file, int index)
+    // Creates an AudioClip instance of the selected file
+    private IEnumerator QueueNextTrack()
     {
+        currentFile = null;
+        if (GetNullableListCount(filePaths) == 0 || switchingTrack) yield break;
+        switchingTrack = true;
+        do
+        {
+            currentTrackIdx++;
+            if (currentTrackIdx >= GetNullableListCount(filePaths))
+            {
+                currentTrackIdx = 0;
+                break;
+            }
+        } while (filePaths[currentTrackIdx] == null);
+
         AudioType audioType = AudioType.UNKNOWN;
-        switch (Path.GetExtension(file))
+        switch (Path.GetExtension(filePaths[currentTrackIdx]))
         {
             case ".wav":
                 audioType = AudioType.WAV;
@@ -171,65 +170,72 @@ public class AudioPlayer : MonoBehaviour
                 audioType = AudioType.MPEG;
                 break;
         }
-        using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip("file://" + file, audioType))
-        {
-            yield return www.SendWebRequest();
+        UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip("file://" + filePaths[currentTrackIdx], audioType);
+        yield return www.SendWebRequest();
 
-            if (www.result == UnityWebRequest.Result.ConnectionError)
-            {
-                Debug.Log(www.error);
-            }
-            else
-            {
-                playlist.Add(DownloadHandlerAudioClip.GetContent(www));
-            }
+        if (www.result == UnityWebRequest.Result.ConnectionError)
+        {
+            Debug.LogError(www.error);
+            filename.text = "File error";
+            switchingTrack = false;
+        }
+        else
+        {
+            currentFile = DownloadHandlerAudioClip.GetContent(www);
+            PlayNextTrack();
         }
     }
 
     public void togglePlaylistGUI()
     {
-        if (playlist.Count == 0) { return; }
+        if (GetNullableListCount(filePaths) != GetNullableListCount(playlistGUIelements) && !clearedList) return;
+        if (clearedList) clearedList = false;
         playlistGUI.SetActive(!playlistGUI.activeInHierarchy);
     }
 
     public void skipToTrack(GameObject button)
     {
-        int selectID = Int32.Parse(buttonMatch.Match(button.name).Captures[0].ToString());
-        currentTrack = selectID - 1;
-        playNextTrack();
+        int selectID = int.Parse(button.name.Split('_')[1]);
+        currentTrackIdx = selectID - 1;
+        StartCoroutine(QueueNextTrack());
     }
 
-    //Deletes a track from the playlist and skips to the next one
     public void deleteItem(GameObject button)
     {
-        int selectID = Int32.Parse(buttonMatch.Match(button.name).Captures[0].ToString());
-        if (playlist.Count == 1)
+        int selectID = int.Parse(button.name.Split('_')[1]);
+        switch (GetNullableListCount(filePaths))
         {
-            clearPlaylist();
-            return;
+            case 0:
+                return;
+            case 1:
+                clearPlaylist();
+                return;
         }
-        playNextTrack();
-        try
-        {
-            playlist.RemoveAt(selectID);
-            filenames.RemoveAt(selectID);
-        }
-        catch (ArgumentOutOfRangeException) { }
-        Destroy(playlistGUIcontent.GetChild(selectID).gameObject);
+        if (selectID == currentTrackIdx) StartCoroutine(QueueNextTrack());
+        filePaths[selectID] = null;
+        Destroy(playlistGUIelements[selectID]);
+        playlistGUIelements[selectID] = null;
     }
 
     public void clearPlaylist()
     {
-        for (int i = 1; i < playlist.Count; i++)
+        for (int i = 1; i < GetNullableListCount(playlistGUIelements); i++)
         {
-            Destroy(playlistGUIcontent.GetChild(i).gameObject);
+            if (playlistGUIelements[i] != null) Destroy(playlistGUIelements[i]);
         }
-        playlistGUIcontent.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = "Playlist Empty";
 
-        playlist.Clear();
-        filenames.Clear();
+        GameObject newElement0 = playlistGUIcontent.GetChild(0).gameObject;
+        newElement0.name = "Track_0";
+        newElement0.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = "Playlist Empty";
+        newElement0.transform.GetChild(0).name = $"Title_0";
+        newElement0.transform.GetChild(1).name = $"Delete_0";
 
-        endPlaylist();
+        clearedList = true;
+
+        filePaths.Clear();
+        playlistGUIelements.Clear();
+
+        EndPlaylist();
     }
 
 }
