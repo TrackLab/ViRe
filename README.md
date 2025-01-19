@@ -7,17 +7,17 @@
 
 <img width="420" src="https://user-images.githubusercontent.com/35671643/120828443-d1a75680-c55c-11eb-98a9-0e1a459c6636.png" alt="ViRe avatar" />
 <br />
-ViRe can be used by anyone who wants to record motion but cannot afford a huge and expensive motion capture studio. <br />
-All you need is a simple VR Setup. ViRe uses SteamVR, the industry-standard environment supporting all kinds of VR Headsets. <br /><br />
+
+ViRe can be used by anyone who wants to record motion but cannot afford a huge and expensive motion capture studio.
+All you need is a simple VR Setup. ViRe uses SteamVR, the industry-standard environment supporting all kinds of VR Headsets.
 
 We made a video to showcase and explain ViRe. Simply click on the YouTube logo to watch it. The video is a little outdated compared to ViRe's current style, but the general explanations still apply
-<br /><br />
+
 <a href="https://www.youtube.com/watch?v=TfnD7U9Bu2g" target="_blank">
   <img width="220" src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg" alt="View ViRe announcement video on YouTube"/>
 </a>
-<br />
 
-## ViRe definitely works with the following headsets <br />
+## ViRe is supported on the following headsets
 
 <img width="128" alt="HTC Vive logo" src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Vive-logo.png"/>
 <img width="128" alt="Valve Index logo" src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Valve_Index_logo.svg" />
@@ -55,7 +55,6 @@ Join our Discord server for all things ViRe (and other stuff, too).
 <a href="https://discord.gg/8yzVHS7XUF" target="_blank">
   <img width="100" src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/653714c174fc6c8bbea73caf_636e0a69f118df70ad7828d4_icon_clyde_blurple_RGB.svg" alt="Discord Link"/>
 </a>
-<br />
 
 ## Feature development
 
@@ -63,17 +62,19 @@ Built on Unity 6000.0.34f1 LTS
 
 | Feature                                       | Status        |
 | ----------------------------------------------|:-------------:|
-| Motion tracking via controllers and headset for the HTC Vive | ✔ Working  |
+| Motion tracking via controllers and headset via SteamVR | ✔ Working  |
 | Recording to a BVH file format. Usable in Blender and other BVH supporting programs | ✔ Working |
 | Spectator camera | ✔ Working |
-| Windows support | ✔ Working |
+| Audio player | ✔ Working |
 | VR compatible menu | ✔ Working |
+| HTC Vive headset support | ✔ Working |
 | Oculus headset support | ✔ Working |
 | Valve Index headset support | 🧪 Testing (talk to us) |
 | Motion tracking via Vive trackers | 🧪 Testing (talk to us) |
 | Procedural leg movement w/o Vive trackers | ✔ Working |
+| Windows support | ✔ Working |
 | Linux support | ✔ Working |
 
-More to come with updates
+<!-- More to come with updates -->
 
 Licensed under GNU GPL 3.0
