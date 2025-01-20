@@ -3,9 +3,10 @@ using UnityEngine;
 public class AssetCreditReader : MonoBehaviour
 {
     public TextAsset OpenSourceCredits;
+    public TMPro.TextMeshProUGUI creditText;
+
     void OnEnable()
     {
-        TMPro.TextMeshProUGUI creditText = GetComponent<TMPro.TextMeshProUGUI>();
         creditText.text = OpenSourceCredits.text;
     }
 }

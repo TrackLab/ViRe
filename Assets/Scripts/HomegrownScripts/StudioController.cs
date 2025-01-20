@@ -4,9 +4,10 @@ using Valve.VR;
 
 public class StudioController : MonoBehaviour
 {
-    private FeedbackColor feedlight;
-    private BVHRecorder recorder;
-    private IKFootSolver leftLeg, rightLeg;
+    public FeedbackColor feedlight;
+    public BVHRecorder recorder;
+    public IKFootSolver leftLeg, rightLeg;
+    public UpdateCheck updateCheck;
     public GameObject pauseScreen;
 
 
@@ -15,12 +16,6 @@ public class StudioController : MonoBehaviour
         // Initialize the variables used by this script and sets the path to Documents in the Recorder
         SteamVR_Actions._default.Record[SteamVR_Input_Sources.Any].onStateDown += vrOnRecord;
         SteamVR_Actions._default.Pause[SteamVR_Input_Sources.Any].onStateDown += vrOnPause;
-
-        GameObject light = GameObject.Find("AirText");
-        feedlight = light.GetComponent<FeedbackColor>();
-        recorder = GetComponent<BVHRecorder>();
-        leftLeg = GameObject.Find("LeftFootController").GetComponent<IKFootSolver>();
-        rightLeg = GameObject.Find("RightFootController").GetComponent<IKFootSolver>();
 
         string docPath = System.Environment.GetEnvironmentVariable("USERPROFILE") + "/Documents";
         string recPath = PlayerPrefs.GetString("RecPath", docPath);
@@ -32,7 +27,6 @@ public class StudioController : MonoBehaviour
         leftLeg.stepDistance = rightLeg.stepDistance = PlayerPrefs.GetFloat("IKthreshold", leftLeg.stepDistance);
         leftLeg.stepLength = rightLeg.stepLength = PlayerPrefs.GetFloat("IKdistance", leftLeg.stepLength);
 
-        UpdateCheck updateCheck = GetComponent<UpdateCheck>();
         updateCheck.check();
     }
 
