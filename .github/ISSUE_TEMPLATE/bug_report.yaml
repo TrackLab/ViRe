@@ -1,0 +1,97 @@
+name: Bug Report
+description: Report an issue to make ViRe better
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # Bug report
+        *Thanks for taking the time to fill out this bug report and helping improve ViRe!*
+        Please try to fill out all fields to the best of your ability.
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+      description: Clearly and concisely write up what is the problem.
+      placeholder: Enter your description here.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction-steps
+    attributes:
+      label: To Reproduce
+      description: Steps to reproduce the behavior.
+      placeholder: |
+        1. Hover the '...' menu option
+        2. Click '....' button
+        3. Scroll down to '....'
+        4. See error
+    validations:
+      required: true
+  - type: textarea
+    id: expected-behaviour
+    attributes:
+      label: Expected behavior
+      description: What you expected to happen instead?
+      placeholder: Type here.
+    validations:
+      required: false
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: If applicable, add screenshots to help explain your problem.
+      placeholder: Upload your screenshots here. You can paste them or click on "Attach files".
+    validations:
+      required: false
+  - type: textarea
+    id: troubleshooting
+    attributes:
+      label: Troubleshooting
+      description: Which steps, if any, did you take to troubleshoot?
+      placeholder: |
+        1. Tried it on version '...'
+        2. Changed the '....' SteamVR setting
+    validations:
+      required: false
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Get the version from the settings menu (bottom right corner)
+      placeholder: v0.12.1A
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      multiple: true
+      options:
+        - Windows
+        - Linux
+    validations:
+      required: true
+  - type: input
+    id: headset
+    attributes:
+      label: VR headset
+      description: Which headset did you use? You can specify multiple
+      placeholder: HTC Vive
+    validations:
+      required: true
+  - type: checkboxes
+    id: discord
+    attributes:
+      label: Did you reach out to us on Discord?
+      description: We want to know, so that we can match up your report there
+      options:
+        - label: Reported on Discord
+          required: false
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional info
+      description: Is there anything else we should know?
+    validations:
+      required: false
