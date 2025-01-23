@@ -58,12 +58,11 @@ public class AudioPlayer : MonoBehaviour
         switchingTrack = false;
     }
 
-    //Loop at the end of the playlist and pauses
-    private void EndPlaylist()
+    private void ResetPlayback()
     {
         switchingTrack = false;
         currentTrackIdx = -1;
-        userPause = true;
+        userPause = false;
         audioSource.Stop();
         playToggleImage.sprite = playButton;
     }
@@ -102,7 +101,6 @@ public class AudioPlayer : MonoBehaviour
 
     public void browseAudio()
     {
-        CancelInvoke();
         filename.text = "Check PC";
         StartCoroutine(RunAudioBrowser());
     }
@@ -115,6 +113,8 @@ public class AudioPlayer : MonoBehaviour
 
         if (FileBrowser.Success)
         {
+            playlistGUI.SetActive(false);
+            CancelInvoke();
             for (int i = 0; i < FileBrowser.Result.Length; i++)
             {
                 filePaths.Add(FileBrowser.Result[i]);
@@ -123,8 +123,9 @@ public class AudioPlayer : MonoBehaviour
             InvokeRepeating(nameof(UpdateData), 0, 0.5f);
             StartCoroutine(GeneratePlaylistGUI());
             currentTrackIdx = -1;
-            yield return null;
         }
+        else filename.text = "No audio selected";
+
     }
 
     private IEnumerator GeneratePlaylistGUI()
@@ -153,11 +154,7 @@ public class AudioPlayer : MonoBehaviour
         do
         {
             currentTrackIdx++;
-            if (currentTrackIdx >= GetNullableListCount(filePaths))
-            {
-                currentTrackIdx = 0;
-                break;
-            }
+            if (currentTrackIdx >= filePaths.Count) currentTrackIdx = 0;
         } while (filePaths[currentTrackIdx] == null);
 
         AudioType audioType = AudioType.UNKNOWN;
@@ -188,13 +185,15 @@ public class AudioPlayer : MonoBehaviour
 
     public void togglePlaylistGUI()
     {
-        if (GetNullableListCount(filePaths) != GetNullableListCount(playlistGUIelements) && !clearedList) return;
+        if (filePaths.Count == 0 && !clearedList) return;
         if (clearedList) clearedList = false;
         playlistGUI.SetActive(!playlistGUI.activeInHierarchy);
     }
 
     public void skipToTrack(GameObject button)
     {
+        //Guard against off-screen button clicks
+        if (button.transform.parent.localPosition.y <= -250 || button.transform.parent.localPosition.y >= -9) return;
         int selectID = int.Parse(button.name.Split('_')[1]);
         currentTrackIdx = selectID - 1;
         StartCoroutine(QueueNextTrack());
@@ -202,6 +201,8 @@ public class AudioPlayer : MonoBehaviour
 
     public void deleteItem(GameObject button)
     {
+        //Guard against off-screen button clicks
+        if (button.transform.parent.localPosition.y <= -250 || button.transform.parent.localPosition.y >= -9) return;
         int selectID = int.Parse(button.name.Split('_')[1]);
         switch (GetNullableListCount(filePaths))
         {
@@ -219,23 +220,28 @@ public class AudioPlayer : MonoBehaviour
 
     public void clearPlaylist()
     {
-        for (int i = 1; i < GetNullableListCount(playlistGUIelements); i++)
+
+        GameObject newElement0 = null;
+
+        foreach (GameObject playlistGUIelement in playlistGUIelements)
         {
-            if (playlistGUIelements[i] != null) Destroy(playlistGUIelements[i]);
+            if (newElement0 == null) newElement0 = playlistGUIelement;
+            else Destroy(playlistGUIelement);
         }
 
-        GameObject newElement0 = playlistGUIcontent.GetChild(0).gameObject;
         newElement0.name = "Track_0";
         newElement0.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = "Playlist Empty";
         newElement0.transform.GetChild(0).name = $"Title_0";
         newElement0.transform.GetChild(1).name = $"Delete_0";
 
         clearedList = true;
+        filename.text = "No audio selected";
 
         filePaths.Clear();
         playlistGUIelements.Clear();
 
-        EndPlaylist();
+        CancelInvoke();
+        ResetPlayback();
     }
 
 }
