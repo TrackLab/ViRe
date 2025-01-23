@@ -12,7 +12,8 @@ enum OverrideTarget
 
 public class IKOverrideManager : MonoBehaviour
 {
-    [SerializeField] GameObject rootPoseTracker, midPoseTracker, tipPoseTracker, rootBone, midBone, tipBone, fbtHelpPopup;
+    [SerializeField] GameObject rootPoseTracker, midPoseTracker, tipPoseTracker, rootBone, midBone, tipBone;
+    [SerializeField] GameObject fbtTipPopup, fbtHelpPopup;
 
     [SerializeField] RigBuilder rigBuilder;
 
@@ -80,7 +81,7 @@ public class IKOverrideManager : MonoBehaviour
 
         if ((rootPoseNode && rootPoseNode.isValid) || (midPoseNode && midPoseNode.isValid) || (tipPoseNode && tipPoseNode.isValid))
         {
-            fbtHelpPopup.SetActive(true);
+            fbtTipPopup.SetActive(true);
             if (scriptToToggle) scriptToToggle.enabled = false;
             localIK.weight = 0;
             ModelReset();
@@ -102,6 +103,11 @@ public class IKOverrideManager : MonoBehaviour
         else tipOverrideScript.constraintActive = true;
 
         rigBuilder.Build();
+    }
+
+    public void HandleNewController(SteamVR_Behaviour_Pose _, SteamVR_Input_Sources __, bool ___)
+    {
+        fbtHelpPopup.SetActive(true);
     }
 
     public void TriggerCalibration(SteamVR_Action_Boolean action, SteamVR_Input_Sources source)
