@@ -12,7 +12,7 @@ body:
     id: description
     attributes:
       label: Describe the bug
-      description: Clearly and concisely write up what is the problem.
+      description: Clearly and concisely write up the problem.
       placeholder: Enter your description here.
     validations:
       required: true
@@ -32,7 +32,7 @@ body:
     id: expected-behaviour
     attributes:
       label: Expected behavior
-      description: What you expected to happen instead?
+      description: What did you expect to happen instead?
       placeholder: Type here.
     validations:
       required: false
@@ -51,14 +51,14 @@ body:
       description: Which steps, if any, did you take to troubleshoot?
       placeholder: |
         1. Tried it on version '...'
-        2. Changed the '....' SteamVR setting
+        2. Changed the '...' SteamVR setting
     validations:
       required: false
   - type: input
     id: version
     attributes:
-      label: Version
-      description: Get the version from the settings menu (bottom right corner)
+      label: Version(s)
+      description: Grab the version from the zip name. You can list several
       placeholder: v0.12.1A
     validations:
       required: true
@@ -83,11 +83,24 @@ body:
   - type: checkboxes
     id: discord
     attributes:
-      label: Did you reach out to us on Discord?
-      description: We want to know, so that we can match up your report there
+      label: Did you reach out to us or see this issue reported on Discord?
+      description: We want to know so that we can match up your report(s) there
       options:
         - label: Reported on Discord
           required: false
+  - type: dropdown
+    id: help
+    attributes:
+      label: Can you help build a fix?
+      description: |
+        In most cases, especially when the issue is hardware-specific, we could really use real-time help in debugging or testing fixes.
+        If you agree to help, you'll need to run the project in the Unity Editor (version in the `README.md`) and we might ask you to hop into a call for live testing.
+      multiple: false
+      options:
+        - No, I'm only able to answer questions about my setup or the issue
+        - Yes, I'm able to work with you using the Unity editor to fix the issue
+    validations:
+      required: true
   - type: textarea
     id: additional
     attributes:
