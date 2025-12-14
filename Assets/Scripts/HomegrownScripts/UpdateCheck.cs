@@ -33,7 +33,7 @@ public class UpdateCheck : MonoBehaviour
         yield return net.SendWebRequest();
         if (net.result != UnityWebRequest.Result.Success) { yield break; }
         string incomingVersion = JsonUtility.FromJson<GitData>(net.downloadHandler.text).tag_name;
-        incomingVersion = incomingVersion.TrimStart('V');
+        incomingVersion = incomingVersion.TrimStart('V').TrimStart('v');
         if (int.TryParse(incomingVersion[^1..], out _)) incomingVersion += 'A';
 
         if (!incomingVersion.Equals(Application.version) && !Application.version.Equals(""))
