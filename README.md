@@ -58,7 +58,7 @@ Join our Discord server for all things ViRe (and other stuff, too).
 
 ## Feature development
 
-Built on Unity 6000.0.34f1 LTS
+Built on Unity 6000.3.1f1 LTS
 
 | Feature                                       | Status        |
 | ----------------------------------------------|:-------------:|
